@@ -1,0 +1,22 @@
+# Credentials - NEVER commit these
+scripts/.env
+scripts/token.json
+scripts/token_ga4.json
+scripts/credentials.json
+
+# Local data (contains proprietary analytics)
+data/raw/
+data/master/
+data/reports/
+cache/
+logs/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/

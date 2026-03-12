@@ -1,0 +1,1206 @@
+<!-- Live example: Windward.ai SEO Agent System Dashboard -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windward SEO Agent System — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─── Design Tokens ─── */
+:root {
+  --blue: #2563eb;
+  --blue-light: #dbeafe;
+  --cyan: #0891b2;
+  --cyan-light: #cffafe;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --purple: #8b5cf6;
+  --purple-light: #f3e8ff;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --orange: #f59e0b;
+  --orange-light: #fef9c3;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--slate-50);
+  color: var(--slate-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout ─── */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.section { margin-top: 48px; }
+.section-title {
+  font-size: 22px; font-weight: 700; color: var(--slate-900);
+  margin-bottom: 6px;
+}
+.section-subtitle {
+  font-size: 14px; color: var(--slate-500); margin-bottom: 20px;
+}
+
+/* ─── Hero ─── */
+.hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a365d 100%);
+  color: white; padding: 56px 0 48px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0, rgba(255,255,255,.02) 1px, transparent 1px, transparent 60px);
+}
+.hero-inner { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-block; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  letter-spacing: .5px; margin-bottom: 16px; color: rgba(255,255,255,.9);
+}
+.hero h1 { font-size: 34px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 6px; }
+.hero-desc { font-size: 16px; color: rgba(255,255,255,.7); margin-bottom: 32px; max-width: 600px; }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.hero-stats-row2 {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px;
+}
+.hero-stat {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius); padding: 20px; text-align: center;
+  backdrop-filter: blur(4px);
+}
+.hero-stat-value { font-size: 32px; font-weight: 800; letter-spacing: -.5px; }
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 2px; text-transform: uppercase; letter-spacing: .5px; }
+.hero-stat-change {
+  display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600;
+  padding: 2px 8px; border-radius: 10px;
+}
+.change-up { background: rgba(22,163,74,.2); color: #4ade80; }
+.change-down { background: rgba(220,38,38,.2); color: #fca5a5; }
+.hero-meta {
+  margin-top: 20px; font-size: 12px; color: rgba(255,255,255,.4);
+}
+
+/* ─── Sticky Nav ─── */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 100; background: white;
+  border-bottom: 1px solid var(--slate-200); box-shadow: var(--shadow);
+}
+.sticky-nav-inner {
+  display: flex; gap: 4px; padding: 8px 0; overflow-x: auto;
+  scrollbar-width: none;
+}
+.sticky-nav-inner::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 6px 14px; font-size: 13px; font-weight: 500; color: var(--slate-500);
+  text-decoration: none; border-radius: 6px; white-space: nowrap;
+  transition: all .15s;
+}
+.nav-link:hover { background: var(--slate-100); color: var(--slate-700); }
+.nav-link.active { background: var(--blue-light); color: var(--blue); }
+
+/* ─── Cards ─── */
+.card {
+  background: white; border: 1px solid var(--slate-200); border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow);
+}
+.card-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+}
+.card-title { font-size: 15px; font-weight: 600; }
+
+/* ─── Tabs ─── */
+.tab-nav { display: flex; border-bottom: 2px solid var(--slate-200); margin-bottom: 20px; gap: 0; }
+.tab-btn {
+  padding: 10px 20px; font-size: 14px; font-weight: 500; color: var(--slate-500);
+  cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all .15s; font-family: var(--font);
+}
+.tab-btn:hover { color: var(--slate-700); }
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Bar Charts ─── */
+.chart-bars { display: flex; align-items: flex-end; gap: 12px; height: 200px; padding-top: 20px; }
+.chart-bar-col {
+  flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%;
+  justify-content: flex-end;
+}
+.chart-bar {
+  width: 100%; border-radius: 4px 4px 0 0; transition: height .6s ease;
+  position: relative; min-height: 4px; cursor: default;
+}
+.chart-bar-value {
+  position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; font-weight: 600; color: var(--slate-700); white-space: nowrap;
+}
+.chart-bar-label {
+  margin-top: 8px; font-size: 11px; color: var(--slate-500); text-align: center;
+}
+.chart-summary {
+  margin-top: 16px; padding: 12px 16px; background: var(--slate-50);
+  border-radius: 6px; font-size: 13px; color: var(--slate-600);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chart-summary strong { color: var(--slate-800); }
+
+/* ─── Agent Grid ─── */
+.agent-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.agent-card {
+  display: flex; align-items: center; gap: 14px; padding: 16px;
+  background: white; border: 1px solid var(--slate-200);
+  border-radius: var(--radius); box-shadow: var(--shadow); transition: border-color .15s;
+}
+.agent-card:hover { border-color: var(--blue); }
+.agent-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.agent-info { flex: 1; min-width: 0; }
+.agent-name { font-size: 14px; font-weight: 600; color: var(--slate-800); }
+.agent-role { font-size: 12px; color: var(--slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agent-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.green { background: var(--green); }
+.status-dot.yellow { background: var(--orange); }
+.status-dot.gray { background: var(--slate-400); }
+.agent-last-run { font-size: 11px; color: var(--slate-400); }
+
+/* ─── Keywords Table ─── */
+.kw-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.kw-filter-btn {
+  padding: 4px 12px; font-size: 12px; font-weight: 500; border-radius: 20px;
+  border: 1px solid var(--slate-200); background: white; color: var(--slate-600);
+  cursor: pointer; font-family: var(--font); transition: all .15s;
+}
+.kw-filter-btn:hover, .kw-filter-btn.active {
+  background: var(--blue); color: white; border-color: var(--blue);
+}
+.kw-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.kw-table thead th {
+  text-align: left; padding: 8px 10px; font-size: 11px; font-weight: 600;
+  color: var(--slate-500); text-transform: uppercase; letter-spacing: .5px;
+  border-bottom: 2px solid var(--slate-200);
+}
+.kw-table tbody tr { border-bottom: 1px solid var(--slate-100); transition: background .1s; }
+.kw-table tbody tr:hover { background: var(--slate-50); }
+.kw-table tbody td { padding: 10px; vertical-align: middle; }
+.kw-table .kw-name { font-weight: 500; color: var(--slate-800); }
+.table-scroll { overflow-x: auto; }
+
+/* ─── Badges ─── */
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: .3px;
+}
+.badge-green { background: var(--green-light); color: #166534; }
+.badge-blue { background: var(--blue-light); color: #1e40af; }
+.badge-yellow { background: var(--orange-light); color: #854d0e; }
+.badge-red { background: var(--red-light); color: #991b1b; }
+.badge-purple { background: var(--purple-light); color: #6b21a8; }
+.badge-cyan { background: var(--cyan-light); color: #155e75; }
+.badge-gray { background: var(--slate-100); color: var(--slate-600); }
+.badge-fire { background: #fff7ed; color: #c2410c; }
+
+/* ─── Pipeline ─── */
+.pipeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.stacked-bar { height: 36px; display: flex; border-radius: 6px; overflow: hidden; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: white; }
+.horiz-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.horiz-bar-label { width: 120px; font-size: 13px; font-weight: 500; color: var(--slate-700); flex-shrink: 0; }
+.horiz-bar-track { flex: 1; height: 24px; background: var(--slate-100); border-radius: 4px; overflow: hidden; }
+.horiz-bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 600; color: white; transition: width .6s ease; }
+.legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--slate-600); }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* ─── Top Tasks ─── */
+.expandable-toggle {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 12px 16px; background: var(--slate-50); border: 1px solid var(--slate-200);
+  border-radius: var(--radius); cursor: pointer; font-family: var(--font);
+  font-size: 14px; font-weight: 600; color: var(--slate-700); margin-top: 20px;
+  transition: background .15s;
+}
+.expandable-toggle:hover { background: var(--slate-100); }
+.expandable-toggle .chevron { transition: transform .2s; font-size: 12px; }
+.expandable-toggle.open .chevron { transform: rotate(90deg); }
+.expandable-content { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+.expandable-content.open { max-height: 2000px; }
+.task-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px 16px;
+  border-bottom: 1px solid var(--slate-100); font-size: 13px;
+}
+.task-score {
+  width: 36px; height: 24px; border-radius: 4px; display: flex;
+  align-items: center; justify-content: center; font-weight: 700;
+  font-size: 12px; color: white; flex-shrink: 0;
+}
+.task-title { flex: 1; color: var(--slate-700); font-weight: 500; }
+.task-team { font-size: 11px; color: var(--slate-500); flex-shrink: 0; }
+
+/* ─── Competitors ─── */
+.comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.comp-card {
+  padding: 16px; background: white; border: 1px solid var(--slate-200);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.comp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.comp-name { font-size: 15px; font-weight: 600; color: var(--slate-800); }
+.comp-domain { font-size: 11px; color: var(--slate-400); }
+.comp-alert { font-size: 12px; color: var(--slate-600); margin-top: 8px; line-height: 1.5; }
+
+/* ─── Two Column ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.col-card {
+  padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.col-card.wins { background: white; border: 1px solid #bbf7d0; border-left: 4px solid var(--green); }
+.col-card.issues { background: white; border: 1px solid #fecaca; border-left: 4px solid var(--red); }
+.col-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.col-card.wins h3 { color: #166534; }
+.col-card.issues h3 { color: #991b1b; }
+.col-card ul { list-style: none; }
+.col-card li { padding: 6px 0; font-size: 13px; color: var(--slate-700); display: flex; gap: 8px; align-items: baseline; }
+.col-card li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.col-card.wins li::before { background: var(--green); }
+.col-card.issues li::before { background: var(--red); }
+
+/* ─── Health ─── */
+.health-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.health-card {
+  padding: 20px; background: white; border: 1px solid var(--slate-200);
+  border-radius: var(--radius); text-align: center; box-shadow: var(--shadow);
+}
+.health-ring {
+  width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.health-ring-inner {
+  width: 52px; height: 52px; border-radius: 50%; background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; position: relative; z-index: 1;
+}
+.health-label { font-size: 13px; font-weight: 600; color: var(--slate-700); }
+.health-desc { font-size: 11px; color: var(--slate-500); margin-top: 4px; }
+.recs-list { margin-top: 16px; }
+.recs-list li {
+  padding: 8px 12px; font-size: 13px; color: var(--slate-600);
+  background: var(--slate-50); border-radius: 6px; margin-bottom: 6px;
+  list-style: none; display: flex; gap: 8px; align-items: baseline;
+}
+.recs-list li::before { content: '\2192'; color: var(--blue); font-weight: 600; }
+
+/* ─── How It Works ─── */
+.pipeline-steps { display: flex; align-items: flex-start; gap: 0; margin: 24px 0; }
+.pipeline-step {
+  flex: 1; text-align: center; position: relative;
+}
+.pipeline-step-icon {
+  width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; color: white; position: relative; z-index: 1;
+}
+.pipeline-step-num {
+  position: absolute; top: -6px; right: -6px; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--slate-900); color: white;
+  font-size: 10px; font-weight: 700; display: flex; align-items: center;
+  justify-content: center;
+}
+.pipeline-step-title { font-size: 14px; font-weight: 700; color: var(--slate-800); margin-bottom: 4px; }
+.pipeline-step-desc { font-size: 12px; color: var(--slate-500); max-width: 180px; margin: 0 auto; line-height: 1.5; }
+.pipeline-arrow {
+  width: 40px; display: flex; align-items: center; justify-content: center;
+  color: var(--slate-300); font-size: 20px; padding-top: 16px;
+}
+
+/* ─── Overall Badge ─── */
+.overall-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+}
+
+/* ─── Footer ─── */
+.footer {
+  margin-top: 56px; padding: 24px 0; border-top: 1px solid var(--slate-200);
+  text-align: center; font-size: 12px; color: var(--slate-400);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 24px; }
+  .hero-stats, .hero-stats-row2 { grid-template-columns: repeat(2, 1fr); }
+  .agent-grid { grid-template-columns: 1fr; }
+  .pipeline-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .comp-grid { grid-template-columns: 1fr; }
+  .health-grid { grid-template-columns: repeat(2, 1fr); }
+  .pipeline-steps { flex-direction: column; align-items: center; }
+  .pipeline-arrow { transform: rotate(90deg); width: auto; padding: 0; }
+  .container { padding: 0 16px; }
+  .ahrefs-metrics { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 480px) {
+  .hero-stats, .hero-stats-row2 { grid-template-columns: 1fr; }
+  .health-grid { grid-template-columns: 1fr; }
+  .hero-stat-value { font-size: 26px; }
+  .ahrefs-metrics { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ─── Print ─── */
+@media print {
+  .sticky-nav { display: none; }
+  .hero { background: #1a365d !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .card, .agent-card, .comp-card, .health-card { box-shadow: none; border: 1px solid #ddd; }
+  .expandable-content { max-height: none !important; }
+  .tab-panel { display: block !important; page-break-inside: avoid; }
+  .section { page-break-inside: avoid; }
+  body { font-size: 12px; }
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeInUp .5s ease forwards; }
+.chart-bar { transition: height .8s cubic-bezier(.4,0,.2,1); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="top">
+  <div class="container hero-inner">
+    <div class="hero-badge">WINDWARD.AI &mdash; SEO OPERATIONS</div>
+    <h1>Autonomous SEO Agent System</h1>
+    <p class="hero-desc">10 AI agents work around the clock to find keyword opportunities, analyze competitors, audit technical health, and create content &mdash; all orchestrated automatically.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="4348">0</div>
+        <div class="hero-stat-label">Weekly Sessions</div>
+        <span class="hero-stat-change change-up">&uarr; GA4 Mar 11</span>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="15">0</div>
+        <div class="hero-stat-label">Conversions (7d)</div>
+        <span class="hero-stat-change change-up">Mar 5–11</span>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="4881">0</div>
+        <div class="hero-stat-label">Search Clicks (7d)</div>
+        <span class="hero-stat-change change-up">1.05M impressions</span>
+      </div>
+    </div>
+    <div class="hero-stats-row2">
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="64">0</div>
+        <div class="hero-stat-label">Domain Rating</div>
+        <span class="hero-stat-change change-up">27,810 org traffic/mo</span>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="1993">0</div>
+        <div class="hero-stat-label">Referring Domains</div>
+        <span class="hero-stat-change change-up">15,990 backlinks</span>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="163">0</div>
+        <div class="hero-stat-label">Active Tasks</div>
+        <span class="hero-stat-change change-up">115 approved</span>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:12px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.8)">
+      <span><strong style="color:rgba(255,255,255,.95)">Ahrefs Organic Traffic:</strong> 27,810/mo</span>
+      <span><strong style="color:rgba(255,255,255,.95)">Keywords:</strong> 3,464</span>
+      <span><strong style="color:rgba(255,255,255,.95)">DR:</strong> 64 (stable)</span>
+      <span><strong style="color:rgba(255,255,255,.95)">Backlinks:</strong> 15,990</span>
+    </div>
+    <div class="hero-meta">Last updated: March 12, 2026 &bull; Data: GSC (Mar 2–9) + GA4 (Mar 11) + Ahrefs (147,100 units remaining) &bull; Pipeline Run v5.1: 7 new tasks, 163 total &bull; Tech health: 68/100 &bull; AI readiness: 59/100</div>
+  </div>
+</section>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="sticky-nav">
+  <div class="container">
+    <div class="sticky-nav-inner">
+      <a href="#performance" class="nav-link active">Performance</a>
+      <a href="#ahrefs" class="nav-link">Ahrefs</a>
+      <a href="#agents" class="nav-link">Agent Roster</a>
+      <a href="#keywords" class="nav-link">Keywords</a>
+      <a href="#pipeline" class="nav-link">Task Pipeline</a>
+      <a href="#competitors" class="nav-link">Competitors</a>
+      <a href="#status" class="nav-link">Status</a>
+      <a href="#health" class="nav-link">System Health</a>
+      <a href="#how" class="nav-link">How It Works</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════ PERFORMANCE TRENDS ═══════════════ -->
+<section class="section" id="performance">
+  <div class="section-title">Performance Trends</div>
+  <div class="section-subtitle">5 weeks of organic search performance, measured each Monday.</div>
+  <div class="card">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="sessions">Sessions</button>
+      <button class="tab-btn" data-tab="conversions">Conversions</button>
+      <button class="tab-btn" data-tab="clicks">Clicks</button>
+      <button class="tab-btn" data-tab="position">Avg Position</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-sessions">
+      <div class="chart-bars">
+        <div class="chart-bar-col"><div class="chart-bar" style="height:77%;background:var(--blue)" data-val="6,301"><span class="chart-bar-value">6,301</span></div><div class="chart-bar-label">Feb 7</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:83%;background:var(--blue)" data-val="6,800"><span class="chart-bar-value">6,800</span></div><div class="chart-bar-label">Feb 14</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:87%;background:var(--blue)" data-val="7,100"><span class="chart-bar-value">7,100</span></div><div class="chart-bar-label">Feb 21</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:90%;background:var(--blue)" data-val="7,400"><span class="chart-bar-value">7,400</span></div><div class="chart-bar-label">Feb 28</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:100%;background:var(--cyan)" data-val="8,182"><span class="chart-bar-value">8,182</span></div><div class="chart-bar-label">Mar 7</div></div>
+      </div>
+      <div class="chart-summary">
+        <span>4-week growth: <strong>+29.9%</strong> (6,301 &rarr; 8,182 sessions)</span>
+        <span class="badge badge-green">Accelerating</span>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-conversions">
+      <div class="chart-bars">
+        <div class="chart-bar-col"><div class="chart-bar" style="height:58%;background:var(--green)" data-val="33"><span class="chart-bar-value">33</span></div><div class="chart-bar-label">Feb 7</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:67%;background:var(--green)" data-val="38"><span class="chart-bar-value">38</span></div><div class="chart-bar-label">Feb 14</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:74%;background:var(--green)" data-val="42"><span class="chart-bar-value">42</span></div><div class="chart-bar-label">Feb 21</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:84%;background:var(--green)" data-val="48"><span class="chart-bar-value">48</span></div><div class="chart-bar-label">Feb 28</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:100%;background:var(--cyan)" data-val="57"><span class="chart-bar-value">57</span></div><div class="chart-bar-label">Mar 7</div></div>
+      </div>
+      <div class="chart-summary">
+        <span>4-week growth: <strong>+72.7%</strong> (33 &rarr; 57 conversions)</span>
+        <span class="badge badge-green">Strong</span>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-clicks">
+      <div class="chart-bars">
+        <div class="chart-bar-col"><div class="chart-bar" style="height:78%;background:var(--purple)" data-val="6,980"><span class="chart-bar-value">6,980</span></div><div class="chart-bar-label">Feb 7</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:81%;background:var(--purple)" data-val="7,200"><span class="chart-bar-value">7,200</span></div><div class="chart-bar-label">Feb 14</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:84%;background:var(--purple)" data-val="7,500"><span class="chart-bar-value">7,500</span></div><div class="chart-bar-label">Feb 21</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:94%;background:var(--purple)" data-val="8,393"><span class="chart-bar-value">8,393</span></div><div class="chart-bar-label">Feb 28</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:100%;background:var(--cyan)" data-val="8,900"><span class="chart-bar-value">8,900</span></div><div class="chart-bar-label">Mar 7</div></div>
+      </div>
+      <div class="chart-summary">
+        <span>4-week growth: <strong>+27.5%</strong> (6,980 &rarr; 8,900 clicks)</span>
+        <span class="badge badge-green">Growing</span>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-position">
+      <div class="chart-bars">
+        <div class="chart-bar-col"><div class="chart-bar" style="height:100%;background:var(--orange)" data-val="12.5"><span class="chart-bar-value">12.5</span></div><div class="chart-bar-label">Feb 7</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:97%;background:var(--orange)" data-val="12.1"><span class="chart-bar-value">12.1</span></div><div class="chart-bar-label">Feb 14</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:94%;background:var(--orange)" data-val="11.8"><span class="chart-bar-value">11.8</span></div><div class="chart-bar-label">Feb 21</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:92%;background:var(--orange)" data-val="11.5"><span class="chart-bar-value">11.5</span></div><div class="chart-bar-label">Feb 28</div></div>
+        <div class="chart-bar-col"><div class="chart-bar" style="height:90%;background:var(--green)" data-val="11.2"><span class="chart-bar-value">11.2</span></div><div class="chart-bar-label">Mar 7</div></div>
+      </div>
+      <div class="chart-summary">
+        <span>Average search position (lower is better): <strong>12.5 &rarr; 11.2</strong></span>
+        <span class="badge badge-green">Improving</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ AHREFS INTELLIGENCE ═══════════════ -->
+<section class="section" id="ahrefs">
+  <div class="section-title">Ahrefs Intelligence</div>
+  <div class="section-subtitle">Backlink profile, keyword rankings, and organic competitor data from Ahrefs (March 12, 2026 — 147,100 units remaining).</div>
+
+  <!-- Summary Metric Cards -->
+  <div class="ahrefs-metrics" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px">
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:var(--blue)">64</div>
+      <div style="font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Domain Rating</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:var(--green)">10,530</div>
+      <div style="font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Organic Traffic</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:var(--purple)">2,002</div>
+      <div style="font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Keywords</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:var(--cyan)">446</div>
+      <div style="font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Top 3 Keywords</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:var(--orange)">14,927</div>
+      <div style="font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Backlinks</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:var(--slate-700)">1,937</div>
+      <div style="font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Referring Domains</div>
+    </div>
+  </div>
+
+  <!-- Top Pages by Traffic -->
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><div class="card-title">Top Pages by Traffic</div><span class="badge badge-blue">Ahrefs Data</span></div>
+    <div class="table-scroll">
+      <table class="kw-table">
+        <thead><tr><th>URL</th><th>Traffic</th><th>Top Keyword</th><th>Keywords</th></tr></thead>
+        <tbody>
+          <tr><td class="kw-name">/</td><td>2,100</td><td>windward</td><td>446</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-commodity-trading/</td><td>1,754</td><td>what is commodity trading</td><td>85</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-vessel-tracking/</td><td>1,223</td><td>vessel tracker</td><td>120</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-a-crude-oil-tanker/</td><td>1,114</td><td>oil tanker</td><td>95</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-a-bill-of-lading/</td><td>580</td><td>bill of lading</td><td>70</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-the-suez-canal/</td><td>420</td><td>suez canal</td><td>55</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-ais-vessel-tracking/</td><td>380</td><td>ais vessel tracking</td><td>65</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-freight-transport/</td><td>350</td><td>freight transport</td><td>40</td></tr>
+          <tr><td class="kw-name">/glossary/what-is-a-consignee/</td><td>310</td><td>consignee</td><td>30</td></tr>
+          <tr><td class="kw-name">/blog/russian-shadow-fleet/</td><td>290</td><td>russian shadow fleet</td><td>45</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart-summary">
+      <span>Traffic Value: <strong>$6,434/mo</strong> equivalent in paid search</span>
+      <span class="badge badge-green">Glossary pages dominate organic traffic</span>
+    </div>
+  </div>
+
+  <!-- Backlink Profile -->
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><div class="card-title">Backlink Profile</div><span class="badge badge-purple">1,937 Referring Domains</span></div>
+    <div class="table-scroll">
+      <table class="kw-table">
+        <thead><tr><th>Referring Domain</th><th>DR</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="kw-name">youtube.com</td><td><span class="badge badge-green">99</span></td><td>Video embed / mention</td></tr>
+          <tr><td class="kw-name">wikipedia.org</td><td><span class="badge badge-green">97</span></td><td>Citation</td></tr>
+          <tr><td class="kw-name">github.com</td><td><span class="badge badge-green">96</span></td><td>Code reference</td></tr>
+          <tr><td class="kw-name">forbes.com</td><td><span class="badge badge-green">94</span></td><td>Press mention</td></tr>
+          <tr><td class="kw-name">nytimes.com</td><td><span class="badge badge-green">94</span></td><td>Press mention</td></tr>
+          <tr><td class="kw-name">linkedin.com</td><td><span class="badge badge-green">93</span></td><td>Social share</td></tr>
+          <tr><td class="kw-name">reuters.com</td><td><span class="badge badge-green">93</span></td><td>Press mention</td></tr>
+          <tr><td class="kw-name">bbc.co.uk</td><td><span class="badge badge-green">92</span></td><td>Press mention</td></tr>
+          <tr><td class="kw-name">medium.com</td><td><span class="badge badge-blue">90</span></td><td>Blog reference</td></tr>
+          <tr><td class="kw-name">gcaptain.com</td><td><span class="badge badge-blue">72</span></td><td>Industry press</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:13px;color:var(--slate-600)">
+      <strong>Link distribution:</strong> Homepage: 1,830 referring domains | Russia Shadow Fleet report: 184 referring domains (strongest non-homepage asset)
+    </div>
+
+    <!-- Spam Alert -->
+    <div style="margin-top:16px;padding:14px 18px;background:var(--red-light);border:1px solid #fecaca;border-left:4px solid var(--red);border-radius:var(--radius)">
+      <div style="font-size:14px;font-weight:700;color:#991b1b;margin-bottom:4px">Spam Backlinks Detected</div>
+      <div style="font-size:13px;color:#7f1d1d;line-height:1.6">
+        <strong>100 domains</strong> with anchor text "TELEGRAM @SEO_ANOMALY" are linking to windward.ai. These are clearly spam/PBN links and should be disavowed immediately via Google Search Console. <strong>Action required: Submit disavow file.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Geographic Distribution -->
+  <div class="card">
+    <div class="card-header"><div class="card-title">Geographic Distribution</div><span class="badge badge-cyan">Top 5 Countries</span></div>
+    <div>
+      <div class="horiz-bar-row">
+        <div class="horiz-bar-label">United States</div>
+        <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:100%;background:var(--blue)">10,530</div></div>
+      </div>
+      <div class="horiz-bar-row">
+        <div class="horiz-bar-label">India</div>
+        <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:41%;background:var(--purple)">4,294</div></div>
+      </div>
+      <div class="horiz-bar-row">
+        <div class="horiz-bar-label">United Kingdom</div>
+        <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:20%;background:var(--cyan)">2,082</div></div>
+      </div>
+      <div class="horiz-bar-row">
+        <div class="horiz-bar-label">Philippines</div>
+        <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:15%;background:var(--green)">1,531</div></div>
+      </div>
+      <div class="horiz-bar-row">
+        <div class="horiz-bar-label">Canada</div>
+        <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:7%;background:var(--orange)">729</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ AGENT ROSTER ═══════════════ -->
+<section class="section" id="agents">
+  <div class="section-title">Agent Roster</div>
+  <div class="section-subtitle">10 specialized AI agents, each handling a different aspect of search optimization.</div>
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#fef3c7">&#128081;</div>
+      <div class="agent-info">
+        <div class="agent-name">Orchestrator</div>
+        <div class="agent-role">Prioritizes tasks, assigns to teams, tracks progress</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#e0e7ff">&#128268;</div>
+      <div class="agent-info">
+        <div class="agent-name">Data Utility</div>
+        <div class="agent-role">Fetches data from Google Search Console, Analytics, PageSpeed</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#dbeafe">&#128270;</div>
+      <div class="agent-info">
+        <div class="agent-name">Keyword Research</div>
+        <div class="agent-role">Finds keyword opportunities, tracks ranking changes</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#fef2f2">&#127919;</div>
+      <div class="agent-info">
+        <div class="agent-name">Competitor Analysis</div>
+        <div class="agent-role">Monitors competitors, finds content gaps and threats</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#f3e8ff">&#129302;</div>
+      <div class="agent-info">
+        <div class="agent-name">AI Answer Optimizer</div>
+        <div class="agent-role">Ensures content appears in AI search results (Google AI, ChatGPT)</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#fef9c3">&#9889;</div>
+      <div class="agent-info">
+        <div class="agent-name">Technical Audit</div>
+        <div class="agent-role">Checks page speed, mobile usability, crawl errors</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#dcfce7">&#9998;&#65039;</div>
+      <div class="agent-info">
+        <div class="agent-name">Content Generator</div>
+        <div class="agent-role">Creates blog posts, glossary entries, landing pages</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 1</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#cffafe">&#128279;</div>
+      <div class="agent-info">
+        <div class="agent-name">Link Building</div>
+        <div class="agent-role">Discovers link opportunities, drafts outreach emails</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#e0e7ff">&#129302;</div>
+      <div class="agent-info">
+        <div class="agent-name">Agent Readiness</div>
+        <div class="agent-role">Ensures AI assistants can navigate and understand the site</div>
+        <div class="agent-meta"><span class="status-dot green"></span><span class="agent-last-run">Last run: Mar 8</span></div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon" style="background:#f1f5f9">&#128218;</div>
+      <div class="agent-info">
+        <div class="agent-name">Learning Agent</div>
+        <div class="agent-role">Tracks algorithm updates, evolves strategies over time</div>
+        <div class="agent-meta"><span class="status-dot yellow"></span><span class="agent-last-run">Last run: Feb 25</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ KEYWORD RANKINGS ═══════════════ -->
+<section class="section" id="keywords">
+  <div class="section-title">Keyword Rankings</div>
+  <div class="section-subtitle">30 tracked search terms &mdash; where Windward appears in Google results (GSC + Ahrefs combined). 4 position decline alerts, 5 zero-click keywords.</div>
+  <div class="card">
+    <div class="kw-filters">
+      <button class="kw-filter-btn active" data-cluster="all">All (30)</button>
+      <button class="kw-filter-btn" data-cluster="trending">Trending (5)</button>
+      <button class="kw-filter-btn" data-cluster="dark_fleet">Dark Fleet (3)</button>
+      <button class="kw-filter-btn" data-cluster="core_product">Core Product (6)</button>
+      <button class="kw-filter-btn" data-cluster="shipping">Shipping (5)</button>
+      <button class="kw-filter-btn" data-cluster="sanctions">Sanctions (1)</button>
+      <button class="kw-filter-btn" data-cluster="commercial">Commercial (2)</button>
+      <button class="kw-filter-btn" data-cluster="government">Government (3)</button>
+      <button class="kw-filter-btn" data-cluster="informational">Zero-Click (3)</button>
+      <button class="kw-filter-btn" data-cluster="ahrefs_new">Ahrefs New (5)</button>
+    </div>
+    <div class="table-scroll">
+      <table class="kw-table">
+        <thead><tr><th>Keyword</th><th>Position</th><th>Trend</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Cluster</th></tr></thead>
+        <tbody>
+          <tr data-cluster="trending"><td class="kw-name">cuba news</td><td><span class="badge badge-green">#1</span></td><td>&#128293; Viral (declining)</td><td>842</td><td>158</td><td>19.0%</td><td><span class="badge badge-fire">Trending</span></td></tr>
+          <tr data-cluster="core_product"><td class="kw-name">deceptive shipping practices</td><td><span class="badge badge-green">#1</span></td><td>&#9654; Stable</td><td>60</td><td>6</td><td>10.0%</td><td><span class="badge badge-blue">Core Product</span></td></tr>
+          <tr data-cluster="core_product"><td class="kw-name">ais spoofing</td><td><span class="badge badge-green">1.5</span></td><td>&#9650; Strong</td><td>15</td><td>2</td><td>10.0%</td><td><span class="badge badge-blue">Core Product</span></td></tr>
+          <tr data-cluster="dark_fleet"><td class="kw-name">dark fleet</td><td><span class="badge badge-green">2.1</span></td><td>&#9650; Improving</td><td>4,656</td><td>105</td><td>2.3%</td><td><span class="badge badge-purple">Dark Fleet</span></td></tr>
+          <tr data-cluster="core_product"><td class="kw-name">maritime domain awareness</td><td><span class="badge badge-blue">3.2</span></td><td>&#9654; Stable</td><td>1,200</td><td>45</td><td>3.8%</td><td><span class="badge badge-blue">Core Product</span></td></tr>
+          <tr data-cluster="informational"><td class="kw-name">maritime</td><td><span class="badge badge-blue">3.7</span></td><td>&#9654; Zero-click</td><td>57,537</td><td>55</td><td>0.1%</td><td><span class="badge badge-gray">Informational</span></td></tr>
+          <tr data-cluster="government"><td class="kw-name">maritime action plan</td><td><span class="badge badge-blue">4.0</span></td><td>&#9650; Trending</td><td>2,100</td><td>100</td><td>4.8%</td><td><span class="badge badge-cyan">Government</span></td></tr>
+          <tr data-cluster="commercial"><td class="kw-name">supply chain disruptions</td><td><span class="badge badge-blue">4.3</span></td><td>&#9654; Stable</td><td>500</td><td>8</td><td>1.6%</td><td><span class="badge badge-gray">Commercial</span></td></tr>
+          <tr data-cluster="core_product"><td class="kw-name">kyv (know your vessel)</td><td><span class="badge badge-blue">4.9</span></td><td>&#9660; CTR gap</td><td>12,140</td><td>19</td><td>0.2%</td><td><span class="badge badge-blue">Core Product</span></td></tr>
+          <tr data-cluster="shipping"><td class="kw-name">bill of lading</td><td><span class="badge badge-blue">5.0</span></td><td>&#9654; Stable</td><td>4,500</td><td>10</td><td>0.2%</td><td><span class="badge badge-gray">Shipping</span></td></tr>
+          <tr data-cluster="government"><td class="kw-name">port state control</td><td><span class="badge badge-blue">5.0</span></td><td>&#9650; Improved</td><td>600</td><td>5</td><td>0.8%</td><td><span class="badge badge-cyan">Government</span></td></tr>
+          <tr data-cluster="government"><td class="kw-name">unmanned surface vehicle</td><td><span class="badge badge-blue">5.1</span></td><td>&#9660; CTR gap</td><td>23,939</td><td>31</td><td>0.1%</td><td><span class="badge badge-cyan">Government</span></td></tr>
+          <tr data-cluster="shipping"><td class="kw-name">consignee</td><td><span class="badge badge-blue">5.5</span></td><td>&#9654; Zero-click</td><td>11,926</td><td>1</td><td>0.01%</td><td><span class="badge badge-gray">Shipping</span></td></tr>
+          <tr data-cluster="commercial"><td class="kw-name">commodity trading</td><td><span class="badge badge-blue">7.5</span></td><td>&#9654; Stable</td><td>8,000</td><td>30</td><td>0.4%</td><td><span class="badge badge-gray">Commercial</span></td></tr>
+          <tr data-cluster="shipping"><td class="kw-name">oil tanker</td><td><span class="badge badge-blue">7.7</span></td><td>&#9654; Stable</td><td>60,911</td><td>147</td><td>0.2%</td><td><span class="badge badge-gray">Shipping</span></td></tr>
+          <tr data-cluster="dark_fleet"><td class="kw-name">shadow fleet <span class="badge badge-red">ALERT</span></td><td><span class="badge badge-blue">8.1</span></td><td>&#9660; Declining</td><td>76,654</td><td>271</td><td>0.4%</td><td><span class="badge badge-purple">Dark Fleet</span></td></tr>
+          <tr data-cluster="core_product"><td class="kw-name">vessel tracking</td><td><span class="badge badge-blue">8.2</span></td><td>&#9650; Recovering</td><td>5,000</td><td>18</td><td>0.4%</td><td><span class="badge badge-blue">Core Product</span></td></tr>
+          <tr data-cluster="informational"><td class="kw-name">eta full form</td><td><span class="badge badge-blue">8.3</span></td><td>&#9654; Zero-click</td><td>13,641</td><td>2</td><td>0.01%</td><td><span class="badge badge-gray">Informational</span></td></tr>
+          <tr data-cluster="dark_fleet"><td class="kw-name">russian shadow fleet</td><td><span class="badge badge-yellow">10.1</span></td><td>&#9660; Borderline</td><td>1,200</td><td>25</td><td>2.1%</td><td><span class="badge badge-purple">Dark Fleet</span></td></tr>
+          <tr data-cluster="shipping"><td class="kw-name">marine insurance</td><td><span class="badge badge-yellow">12.0</span></td><td>&#9660; Borderline</td><td>4,200</td><td>35</td><td>0.8%</td><td><span class="badge badge-gray">Shipping</span></td></tr>
+          <tr data-cluster="sanctions"><td class="kw-name">sanctions compliance</td><td><span class="badge badge-yellow">12.5</span></td><td>&#9660; Weak</td><td>60</td><td>0</td><td>0%</td><td><span class="badge badge-yellow">Sanctions</span></td></tr>
+          <tr data-cluster="shipping"><td class="kw-name">container tracking</td><td><span class="badge badge-yellow">13.5</span></td><td>&#9660; Weak</td><td>5,500</td><td>18</td><td>0.3%</td><td><span class="badge badge-gray">Shipping</span></td></tr>
+          <tr data-cluster="sanctions"><td class="kw-name">marine compliance software <span class="badge badge-red">ALERT</span></td><td><span class="badge badge-red">14.5</span></td><td>&#9660; Dropped #1&rarr;#14</td><td>323</td><td>0</td><td>0%</td><td><span class="badge badge-yellow">Sanctions</span></td></tr>
+          <tr data-cluster="core_product"><td class="kw-name">ais ship tracking <span class="badge badge-red">ALERT</span></td><td><span class="badge badge-red">46.8</span></td><td>&#9660; Emergency</td><td>810</td><td>27</td><td>3.3%</td><td><span class="badge badge-blue">Core Product</span></td></tr>
+          <tr data-cluster="trending"><td class="kw-name">gps jamming ships</td><td><span class="badge badge-fire">Trending</span></td><td>&#128293; Spike</td><td>Surging</td><td>456</td><td>High</td><td><span class="badge badge-fire">Trending</span></td></tr>
+          <tr data-cluster="trending"><td class="kw-name">iran war maritime</td><td><span class="badge badge-fire">Trending</span></td><td>&#128293; Spike</td><td>Surging</td><td>263</td><td>High</td><td><span class="badge badge-fire">Trending</span></td></tr>
+          <tr data-cluster="trending"><td class="kw-name">strait of hormuz shipping</td><td><span class="badge badge-fire">Trending</span></td><td>&#128293; Spike</td><td>Emerging</td><td>&mdash;</td><td>N/A</td><td><span class="badge badge-fire">Trending</span></td></tr>
+          <tr data-cluster="trending"><td class="kw-name">gps jamming maritime</td><td><span class="badge badge-fire">Trending</span></td><td>&#128293; Spike</td><td>Emerging</td><td>&mdash;</td><td>High</td><td><span class="badge badge-fire">Trending</span></td></tr>
+          <tr data-cluster="ahrefs_new"><td class="kw-name">maritime trade <span class="badge badge-cyan">NEW</span></td><td><span class="badge badge-green">#1</span></td><td>&#9650; Strong</td><td>1,400</td><td>134</td><td>9.6%</td><td><span class="badge badge-cyan">Ahrefs New</span></td></tr>
+          <tr data-cluster="ahrefs_new"><td class="kw-name">freight transport <span class="badge badge-cyan">NEW</span></td><td><span class="badge badge-green">#1</span></td><td>&#9650; Strong</td><td>5,700</td><td>271</td><td>4.8%</td><td><span class="badge badge-cyan">Ahrefs New</span></td></tr>
+          <tr data-cluster="ahrefs_new"><td class="kw-name">maritime ai <span class="badge badge-cyan">NEW</span></td><td><span class="badge badge-green">#1</span></td><td>&#9650; Strong</td><td>150</td><td>53</td><td>35.3%</td><td><span class="badge badge-cyan">Ahrefs New</span></td></tr>
+          <tr data-cluster="ahrefs_new"><td class="kw-name">maritime compliance software <span class="badge badge-cyan">NEW</span></td><td><span class="badge badge-green">#1</span></td><td>&#9650; Strong</td><td>150</td><td>63</td><td>42.0%</td><td><span class="badge badge-cyan">Ahrefs New</span></td></tr>
+          <tr data-cluster="ahrefs_new"><td class="kw-name">naval blockade <span class="badge badge-cyan">NEW</span></td><td><span class="badge badge-green">#1</span></td><td>&#9650; Strong</td><td>4,100</td><td>56</td><td>1.4%</td><td><span class="badge badge-cyan">Ahrefs New</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TASK PIPELINE ═══════════════ -->
+<section class="section" id="pipeline">
+  <div class="section-title">Task Pipeline</div>
+  <div class="section-subtitle">128 tasks identified by agents, prioritized by business impact and urgency. 26 new tasks added this cycle.</div>
+
+  <div class="pipeline-grid">
+    <div class="card">
+      <div class="card-title">By Status</div>
+      <div style="margin-top:12px">
+        <div class="stacked-bar">
+          <div class="stacked-seg" style="width:24.2%;background:var(--orange)" title="31 Pending Approval">31</div>
+          <div class="stacked-seg" style="width:75%;background:var(--blue)" title="96 Approved & Ready">96</div>
+          <div class="stacked-seg" style="width:0.8%;background:var(--slate-300)" title="1 Superseded">1</div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Pending Approval (31)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Approved &amp; Ready (96)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300)"></div>Superseded (1)</div>
+        </div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:var(--slate-500)">31 tasks require manual approval before teams can act on them (website changes, technical fixes). 26 new tasks added this cycle (Week 5).</p>
+    </div>
+    <div class="card">
+      <div class="card-title">By Team</div>
+      <div style="margin-top:12px">
+        <div class="horiz-bar-row">
+          <div class="horiz-bar-label">Content Team</div>
+          <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:100%;background:var(--blue)">80</div></div>
+        </div>
+        <div class="horiz-bar-row">
+          <div class="horiz-bar-label">Dev / External</div>
+          <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:35%;background:var(--purple)">28</div></div>
+        </div>
+        <div class="horiz-bar-row">
+          <div class="horiz-bar-label">Marketing</div>
+          <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:21%;background:var(--cyan)">17</div></div>
+        </div>
+        <div class="horiz-bar-row">
+          <div class="horiz-bar-label">Webmaster</div>
+          <div class="horiz-bar-track"><div class="horiz-bar-fill" style="width:4%;background:var(--orange)">3</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="expandable-toggle" onclick="toggleExpand(this)">
+    <span class="chevron">&#9654;</span> Top 10 Highest Priority Tasks
+  </button>
+  <div class="expandable-content">
+    <div class="task-row"><div class="task-score" style="background:var(--red)">98</div><div class="task-title">CRITICAL: Investigate brand term ranking collapse</div><div class="task-team"><span class="badge badge-yellow">Pending</span> Dev</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--red)">97</div><div class="task-title">URGENT: CNN reporter follow-up within 48 hours (March 6 GPS jamming)</div><div class="task-team"><span class="badge badge-blue">Approved</span> Marketing</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--red)">96</div><div class="task-title">ESCALATE: Bloomberg outreach &mdash; dark fleet data source pitch</div><div class="task-team"><span class="badge badge-blue">Approved</span> Marketing</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--red)">96</div><div class="task-title">CRITICAL: Create Strait of Hormuz crisis hub page</div><div class="task-team"><span class="badge badge-blue">Approved</span> Content</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--red)">96</div><div class="task-title">URGENT: Nurture CNN relationship &mdash; ongoing Iran war data</div><div class="task-team"><span class="badge badge-blue">Approved</span> Marketing</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--red)">96</div><div class="task-title">URGENT: Publish 3 sector-specific Hormuz crisis blogs</div><div class="task-team"><span class="badge badge-blue">Approved</span> Content</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--orange)">95</div><div class="task-title">CRITICAL: Fix /maritime-ai/ full 404 (3rd audit, overdue)</div><div class="task-team"><span class="badge badge-yellow">Pending</span> Dev</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--orange)">95</div><div class="task-title">URGENT: Recover vessel tracking ranking (dropped 21 positions)</div><div class="task-team"><span class="badge badge-blue">Approved</span> Content</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--orange)">95</div><div class="task-title">CRITICAL: Fix dark fleet glossary 404 &mdash; set up 301 redirects</div><div class="task-team"><span class="badge badge-yellow">Pending</span> Dev</div></div>
+    <div class="task-row"><div class="task-score" style="background:var(--orange)">94</div><div class="task-title">CRITICAL: 301 redirect for /solutions/ocean-freight-visibility/ (404)</div><div class="task-team"><span class="badge badge-yellow">Pending</span> Webmaster</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ COMPETITORS ═══════════════ -->
+<section class="section" id="competitors">
+  <div class="section-title">Competitor Landscape</div>
+  <div class="section-subtitle">7 competitors tracked across search rankings, media citations, and content strategy. CLS Maritime added this cycle.</div>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div><div class="comp-name">Kpler</div><div class="comp-domain">kpler.com</div></div>
+        <span class="badge badge-red">Primary Threat</span>
+      </div>
+      <div class="comp-alert">Cited 7+ times for Hormuz data (Bloomberg, Reuters, CNBC, Al Arabiya). Turning Tides report: 3,300 shadow fleet vessels. Gap widening.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-header">
+        <div><div class="comp-name">Pole Star</div><div class="comp-domain">polestarglobal.com</div></div>
+        <span class="badge badge-red">Active Threat</span>
+      </div>
+      <div class="comp-alert">MTI continues gaining PR (10+ outlets). Bill of Lading Verification launched on PurpleTRAC. Dark Fleet Knowledge Hub competing with Windward glossary.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-header">
+        <div><div class="comp-name">Starboard Maritime</div><div class="comp-domain">starboard.nz</div></div>
+        <span class="badge badge-yellow">Emerging Threat</span>
+      </div>
+      <div class="comp-alert">Expanding into subsea cable protection. S&amp;P Global partnership. Dark vessel detection case study published. Claims 4,000+ positions/sec.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-header">
+        <div><div class="comp-name">MarineTraffic</div><div class="comp-domain">marinetraffic.com</div></div>
+        <span class="badge badge-blue">Active Competitor</span>
+      </div>
+      <div class="comp-alert">644 branded queries hit Windward pages with 0 clicks. Now part of Kpler &mdash; combined threat. No new independent content in March.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-header">
+        <div><div class="comp-name">CLS Maritime</div><div class="comp-domain">maritime-intelligence.groupcls.com</div></div>
+        <span class="badge badge-yellow">Monitor</span>
+      </div>
+      <div class="comp-alert">NEW: Ranking in dark fleet detection SERPs. MAS platform case studies. Added to tracking this cycle.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-header">
+        <div><div class="comp-name">VesselsValue</div><div class="comp-domain">vesselsvalue.com</div></div>
+        <span class="badge badge-green">Low Threat</span>
+      </div>
+      <div class="comp-alert">No new blog content in March 2026. Focused on valuation data product. Minimal overlap.</div>
+    </div>
+  </div>
+
+  <!-- Ahrefs Organic Competitors -->
+  <div style="margin-top:24px">
+    <div style="font-size:15px;font-weight:700;color:var(--slate-800);margin-bottom:12px">Organic Search Competitors <span class="badge badge-purple">via Ahrefs</span></div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Maersk</div><div class="comp-domain">maersk.com</div></div>
+          <span class="badge badge-red">DR 83</span>
+        </div>
+        <div class="comp-alert"><strong>356</strong> common keywords &bull; <strong>160K</strong> organic traffic/mo &bull; Dominant in shipping logistics terms.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Freightos</div><div class="comp-domain">freightos.com</div></div>
+          <span class="badge badge-yellow">DR 75</span>
+        </div>
+        <div class="comp-alert"><strong>235</strong> common keywords &bull; <strong>55K</strong> organic traffic/mo &bull; Strong in freight and shipping cost terms.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">SeaRates</div><div class="comp-domain">searates.com</div></div>
+          <span class="badge badge-yellow">DR 73</span>
+        </div>
+        <div class="comp-alert"><strong>228</strong> common keywords &bull; <strong>35K</strong> organic traffic/mo &bull; Competes on logistics glossary terms.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">MarineTraffic</div><div class="comp-domain">marinetraffic.com</div></div>
+          <span class="badge badge-red">DR 84</span>
+        </div>
+        <div class="comp-alert"><strong>140</strong> common keywords &bull; <strong>231K</strong> organic traffic/mo &bull; Dominates vessel tracking and AIS terms.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Marine Insight</div><div class="comp-domain">marineinsight.com</div></div>
+          <span class="badge badge-yellow">DR 75</span>
+        </div>
+        <div class="comp-alert"><strong>176</strong> common keywords &bull; <strong>39K</strong> organic traffic/mo &bull; Major content competitor for maritime glossary.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WHAT'S WORKING / NEEDS ATTENTION ═══════════════ -->
+<section class="section" id="status">
+  <div class="section-title">Current Status</div>
+  <div class="section-subtitle">Summary of wins and areas that need attention this week.</div>
+  <div class="two-col">
+    <div class="col-card wins">
+      <h3>What's Working</h3>
+      <ul>
+        <li>Iran/Hormuz crisis content driving <strong>500+ daily sessions</strong> combined</li>
+        <li>GPS jamming blog at <strong>481 sessions</strong> (highest single blog traffic)</li>
+        <li><strong>CNN cited Windward</strong> (March 6) for GPS jamming data &mdash; highest-value media win</li>
+        <li>Cuba tanker blog: <strong>971 sessions, 87% engagement</strong></li>
+        <li>Maritime action plan blog: position <strong>#4, 4.8% CTR</strong></li>
+        <li>MarineLog hosting daily Windward intelligence reports (de facto partnership)</li>
+        <li>Safety4Sea syndicated dark fleet + reflagging articles (2 backlinks)</li>
+        <li>Sitemap accessibility improved <strong>8% to 75%</strong> (9 of 12 accessible)</li>
+        <li>AI Fitness average <strong>79/100</strong> across 8 audited pages</li>
+        <li><strong>"Deceptive shipping practices"</strong> position #1 (owned keyword)</li>
+      </ul>
+    </div>
+    <div class="col-card issues">
+      <h3>Needs Attention</h3>
+      <ul>
+        <li><strong>Kpler launched Vessel Risk Indicator</strong> (March 2) &mdash; THREE-WAY risk scoring race, Windward absent</li>
+        <li><strong>Kpler has 2 predictive compliance pieces</strong>, Windward has ZERO &mdash; narrative gap widening</li>
+        <li><strong>Starboard NZ$23M funding</strong> + ex-Palantir chair &mdash; threat level UPGRADED</li>
+        <li><strong>CNN follow-up 6 DAYS OVERDUE</strong> &mdash; send data package TODAY (ACT-2026-152)</li>
+        <li><strong>3 active 404s Day 4+:</strong> /maritime-ai/, /glossary/what-is-dark-fleet/, /solutions/defense/ — compounding ranking loss</li>
+        <li><strong>Homepage LCP: 19.1s</strong> (CRITICAL — target &lt;2.5s; client-side JS blocking HubSpot/GTM/Clarity)</li>
+        <li><strong>0 of 163 tasks completed</strong> by teams &mdash; pipeline stagnation 35+ days</li>
+        <li><strong>0 outreach emails sent</strong> in 35 days &mdash; Atlantic Council LAST CHANCE, Bloomberg needs spokesperson</li>
+        <li><strong>Ahrefs MCP restored</strong> &mdash; 147,100 units remaining; 375 used this run</li>
+        <li>Technical health: <strong>68/100</strong> (&minus;2 this run) &bull; AI readiness: <strong>59/100</strong> (flat — no recs implemented)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SYSTEM HEALTH ═══════════════ -->
+<section class="section" id="health">
+  <div class="section-title">System Health</div>
+  <div class="section-subtitle">
+    Diagnostic check from March 12, 2026 &mdash;
+    <span class="overall-badge" style="background:var(--orange-light);color:#854d0e">MOSTLY HEALTHY</span>
+  </div>
+  <div class="health-grid">
+    <div class="health-card">
+      <div class="health-ring" style="background:conic-gradient(var(--green) 0% 100%, var(--slate-200) 100%)"><div class="health-ring-inner" style="color:var(--green)">100</div></div>
+      <div class="health-label">Agent Skills</div>
+      <div class="health-desc">13/13 skills present and loadable</div>
+    </div>
+    <div class="health-card">
+      <div class="health-ring" style="background:conic-gradient(var(--green) 0% 95%, var(--slate-200) 95%)"><div class="health-ring-inner" style="color:var(--green)">95</div></div>
+      <div class="health-label">Integrations</div>
+      <div class="health-desc">Slack, Python, Google APIs all working</div>
+    </div>
+    <div class="health-card">
+      <div class="health-ring" style="background:conic-gradient(var(--green) 0% 95%, var(--slate-200) 95%)"><div class="health-ring-inner" style="color:var(--green)">95</div></div>
+      <div class="health-label">Configuration</div>
+      <div class="health-desc">All config files valid, 57 learned strategies</div>
+    </div>
+    <div class="health-card">
+      <div class="health-ring" style="background:conic-gradient(var(--green) 0% 91%, var(--slate-200) 91%)"><div class="health-ring-inner" style="color:var(--green)">91</div></div>
+      <div class="health-label">File System</div>
+      <div class="health-desc">10/11 master files present. 1 missing.</div>
+    </div>
+    <div class="health-card">
+      <div class="health-ring" style="background:conic-gradient(var(--orange) 0% 65%, var(--slate-200) 65%)"><div class="health-ring-inner" style="color:var(--orange)">65</div></div>
+      <div class="health-label">Data Freshness</div>
+      <div class="health-desc">GSC: 403 error. Ahrefs: 401 auth. GA4 + sitemap OK.</div>
+    </div>
+    <div class="health-card">
+      <div class="health-ring" style="background:conic-gradient(var(--green) 0% 90%, var(--slate-200) 90%)"><div class="health-ring-inner" style="color:var(--green)">90</div></div>
+      <div class="health-label">Sheets Sync</div>
+      <div class="health-desc">Google Sheets MCP connected. Dashboard syncing.</div>
+    </div>
+  </div>
+
+  <button class="expandable-toggle" onclick="toggleExpand(this)" style="margin-top:16px">
+    <span class="chevron">&#9654;</span> Recommended Actions
+  </button>
+  <div class="expandable-content">
+    <ul class="recs-list">
+      <li><strong>CRITICAL:</strong> Fix 3 active 404s NOW (Day 4+) &mdash; /maritime-ai/, /dark-fleet/, /solutions/defense/ &mdash; compounding ranking loss daily</li>
+      <li><strong>CRITICAL:</strong> Fix homepage LCP 19.1s &mdash; defer HubSpot/GTM/Clarity to after-paint, add preconnect hints</li>
+      <li><strong>HIGH:</strong> Iran War meta title fix &mdash; 330K impressions/week at 0.3% CTR; single highest-ROI change on site (ACT-2026-170)</li>
+      <li><strong>HIGH:</strong> Atlantic Council data pitch &mdash; 35 days stagnant, crisis window closing THIS WEEK (ACT-2026-176)</li>
+      <li><strong>HIGH:</strong> CNN follow-up data package &mdash; 6 days overdue, journalist relationship degrading (ACT-2026-152)</li>
+      <li>Shadow fleet FAQPage schema &mdash; 3-agent consensus, proven +30-40% AI extraction (ACT-2026-012)</li>
+      <li>Address team task backlog: 163 tasks queued, 0 completed in 5+ weeks</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="section" id="how">
+  <div class="section-title">How It Works</div>
+  <div class="section-subtitle">A fully autonomous pipeline &mdash; from raw data to prioritized tasks, running every week.</div>
+
+  <div class="card" style="padding:32px">
+    <div class="pipeline-steps">
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#2563eb,#0891b2)">
+          <span>&#128268;</span><span class="pipeline-step-num">1</span>
+        </div>
+        <div class="pipeline-step-title">Collect Data</div>
+        <div class="pipeline-step-desc">Pulls search rankings, traffic, page speed, and competitor data from Google &amp; other sources.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">
+          <span>&#128270;</span><span class="pipeline-step-num">2</span>
+        </div>
+        <div class="pipeline-step-title">Analyze</div>
+        <div class="pipeline-step-desc">6 specialist agents each examine a different angle: keywords, competitors, technical health, AI visibility, links, and content.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+          <span>&#128081;</span><span class="pipeline-step-num">3</span>
+        </div>
+        <div class="pipeline-step-title">Prioritize</div>
+        <div class="pipeline-step-desc">The orchestrator merges all findings, scores each task by business impact, and assigns to the right team.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#16a34a,#059669)">
+          <span>&#9998;&#65039;</span><span class="pipeline-step-num">4</span>
+        </div>
+        <div class="pipeline-step-title">Execute</div>
+        <div class="pipeline-step-desc">Content drafts are generated automatically. Technical tasks and website changes go to human teams for implementation.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
+          <span>&#128218;</span><span class="pipeline-step-num">5</span>
+        </div>
+        <div class="pipeline-step-title">Learn</div>
+        <div class="pipeline-step-desc">Results are measured each week. The system updates its strategy based on what worked and what didn't.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;padding:20px;background:var(--slate-50);border-radius:8px;text-align:center">
+      <div style="font-size:14px;font-weight:600;color:var(--slate-700);margin-bottom:8px">The Result</div>
+      <div style="font-size:13px;color:var(--slate-600);max-width:600px;margin:0 auto;line-height:1.7">
+        What would take a team of SEO specialists days to research and plan, this system does in hours &mdash; analyzing thousands of keywords, monitoring 6 competitors, auditing hundreds of pages, and producing ready-to-publish content drafts. Each week, the system identifies the highest-impact opportunities and creates clear, prioritized tasks for the team.
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="footer">
+  <div class="container">
+    Windward.ai SEO Agent System &bull; Built with Claude Code &bull; Dashboard generated March 12, 2026
+  </div>
+</div>
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+// ─── Tab Switching ───
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const parent = this.closest('.card');
+    parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    parent.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+  });
+});
+
+// ─── Expandable Sections ───
+function toggleExpand(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('open');
+}
+
+// ─── Animated Counters ───
+function animateCounter(el, target, duration) {
+  const start = 0;
+  const startTime = performance.now();
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(start + (target - start) * eased);
+    el.textContent = current.toLocaleString();
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      if (!el.dataset.animated) {
+        el.dataset.animated = 'true';
+        animateCounter(el, target, 1200);
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+// ─── Keyword Cluster Filter ───
+document.querySelectorAll('.kw-filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.kw-filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const cluster = this.dataset.cluster;
+    document.querySelectorAll('.kw-table tbody tr').forEach(row => {
+      if (cluster === 'all' || row.dataset.cluster === cluster) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+});
+
+// ─── Smooth Scroll Nav ───
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ─── Active Nav on Scroll ───
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector('.nav-link[href="#' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>

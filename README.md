@@ -5,8 +5,7 @@
 
 An autonomous, multi-agent SEO system built with [Claude Code](https://claude.ai/code) that continuously optimizes organic search presence, AI answer engine visibility, and agent-readiness — with zero manual intervention between weekly runs.
 
-**Live Dashboard**: [View the SEO Agent Dashboard](https://seo.growthbyagent.com)
-*(Replace Talko90 with your GitHub username after pushing)*
+**Live Dashboard**: [View the SEO Agent Dashboard](https://growthbyagent.com/project/Agentic-SEO/)
 
 ---
 

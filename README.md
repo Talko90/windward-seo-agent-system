@@ -1,21 +1,21 @@
 ![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-orange?logo=anthropic)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-# Windward SEO Agent System
+# Autonomous SEO Agent System
 
 An autonomous, multi-agent SEO system built with [Claude Code](https://claude.ai/code) that continuously optimizes organic search presence, AI answer engine visibility, and agent-readiness — with zero manual intervention between weekly runs.
 
-**Live Dashboard**: [View the SEO Agent Dashboard](https://growthbyagent.com/project/Agentic-SEO/)
+**Live Demo**: [View the SEO Agent Dashboard](https://growthbyagent.com/project/Agentic-SEO/)
+
+> **Case study**: This system was built and deployed for [Windward.ai](https://windward.ai) — a maritime intelligence company. The dashboard shows real pipeline outputs and agent logic. Replace the industry context with your own to deploy it for any business.
 
 ---
 
 ## What Is This?
 
-This is a production implementation of an autonomous SEO system powering [Windward.ai](https://windward.ai) — a maritime intelligence company that helps organizations track vessels, detect sanctions evasion, and analyze dark fleet activity.
-
 Instead of a single AI assistant answering SEO questions, this system uses **8 specialized agents** operating as a coordinated team, each with a defined scope and data contract. A central Orchestrator agent reads proposals from all analysis agents, resolves conflicts, and drives a prioritized action queue for human teams.
 
-The result: a fully automated SEO pipeline that runs twice a week, generates content briefs and outreach drafts, syncs to Google Sheets, notifies Slack, and continuously learns from results — with no manual steering required.
+The result: a fully automated SEO pipeline that runs on any cadence (daily, twice weekly, or on-demand), generates content briefs and outreach drafts, syncs to Google Sheets, notifies Slack, and continuously learns from results — with no manual steering required.
 
 ---
 
@@ -39,16 +39,16 @@ The result: a fully automated SEO pipeline that runs twice a week, generates con
 ## What Makes This Different
 
 ### 1. Fully Autonomous Execution
-The pipeline runs unattended via a cron job. From data fetch to Slack notification to Google Sheets sync — no human in the loop between runs. Human review happens asynchronously via Slack and the dashboard.
+The pipeline runs unattended on any schedule. From data fetch to Slack notification to Google Sheets sync — no human in the loop between runs. Human review happens asynchronously via Slack and the dashboard.
 
 ### 2. Low-Hanging Fruits Protocol
-Every agent is programmed to identify "effort=1" wins first — small changes with outsized impact. Example: updating 4 blog post titles that were getting 330K impressions/week at 0.3% CTR because the title tags didn't match searcher intent. Expected result: 10x CTR improvement with a single metadata change.
+Every agent is programmed to identify "effort=1" wins first — small changes with outsized impact. Example: updating blog post titles that were getting 330K impressions/week at 0.3% CTR because the title tags didn't match searcher intent. Expected result: 10x CTR improvement with a single metadata change.
 
 ### 3. Multi-Agent Consensus with Proposal Buffers
 Analysis agents write proposals to `data/proposals/` — they never write directly to the master database. The Orchestrator reads all proposals, resolves conflicts, applies the priority scoring formula `(Business Value × Urgency × Confidence) / Effort`, and produces a single reconciled action queue. This prevents agents from overwriting each other's work.
 
 ### 4. Cross-Agent Synthesis
-The Orchestrator identifies synergies across proposals. Example: the Data Agent flags that dark fleet data is stale → the Content Agent has a draft using that data → the Link Building Agent has an outreach email citing that data. The Orchestrator coordinates all three to execute together for maximum impact.
+The Orchestrator identifies synergies across proposals. Example: the Data Agent flags a trending topic → the Content Agent drafts a hub page → the Link Building Agent has outreach prospects for that topic. The Orchestrator coordinates all three to execute together for maximum impact.
 
 ### 5. Zero-Hallucination Architecture
 Every quantitative claim in every proposal must include `data_source` and `fetched_at`. Acceptable sources have defined confidence scores: `ahrefs_mcp` (0.95), `gsc_data` (0.90), `web_search` (0.60). If data is unavailable, agents say "Data not available" — never estimate without evidence.
@@ -147,7 +147,7 @@ cp scripts/.env.example scripts/.env
 
 ### Step 5: Update CLAUDE.md for your site
 
-Edit `CLAUDE.md` to replace Windward-specific context with your site's:
+Edit `CLAUDE.md` to replace the example context with your site's:
 - Domain and industry context
 - Competitor list
 - Team routing (who handles content, dev, marketing)
@@ -202,7 +202,7 @@ crontab -e
 ├── scripts/
 │   ├── fetch_gsc.py              ← Google Search Console data fetcher
 │   ├── fetch_pagespeed.py        ← PageSpeed Insights fetcher
-│   ├── run-seo-pipeline.sh       ← Cron-schedulable pipeline runner
+│   ├── run-seo-pipeline.sh       ← Schedulable pipeline runner
 │   └── .env.example              ← Environment variable template
 └── data/                         ← Gitignored - created at runtime
     ├── raw/                      ← API responses and exports

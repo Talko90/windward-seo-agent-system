@@ -255,9 +255,59 @@ ul { list-style: none; }
 .agent-list-item {
   display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
   background: white; border: 1px solid var(--slate-200); border-radius: 10px;
-  box-shadow: var(--shadow); transition: border-color .15s;
+  box-shadow: var(--shadow); transition: border-color .15s, box-shadow .15s;
+  cursor: pointer;
 }
-.agent-list-item:hover { border-color: var(--blue); }
+.agent-list-item:hover { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+.agent-list-item:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+
+/* ══════════════════════════════════════
+   AGENT MODAL
+══════════════════════════════════════ */
+.agent-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 2000;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; pointer-events: none; transition: opacity .2s ease;
+}
+.agent-modal-backdrop.open { opacity: 1; pointer-events: all; }
+.agent-modal {
+  background: white; border-radius: 20px; max-width: 540px; width: 100%;
+  box-shadow: 0 32px 80px rgba(0,0,0,.3); overflow: hidden;
+  transform: translateY(20px) scale(.97); transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.agent-modal-backdrop.open .agent-modal { transform: translateY(0) scale(1); }
+.agent-modal-header {
+  background: linear-gradient(135deg,#0a0f1e 0%,#0f2040 100%);
+  padding: 28px 28px 24px; color: white; position: relative;
+}
+.agent-modal-icon { font-size: 40px; margin-bottom: 10px; display: block; }
+.agent-modal-name { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 4px; }
+.agent-modal-tagline { font-size: 13px; color: rgba(255,255,255,.5); max-width: 400px; line-height: 1.5; }
+.agent-modal-close {
+  position: absolute; top: 18px; right: 18px; width: 32px; height: 32px;
+  border-radius: 50%; background: rgba(255,255,255,.1); border: none; color: rgba(255,255,255,.7);
+  font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .15s; font-family: var(--font); line-height: 1;
+}
+.agent-modal-close:hover { background: rgba(255,255,255,.2); color: white; }
+.agent-modal-body { padding: 24px 28px 28px; }
+.agent-modal-section { margin-bottom: 20px; }
+.agent-modal-section:last-child { margin-bottom: 0; }
+.agent-modal-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--slate-400); margin-bottom: 8px;
+}
+.agent-modal-text { font-size: 14px; color: var(--slate-700); line-height: 1.65; }
+.agent-modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.agent-modal-tag {
+  background: var(--slate-100); color: var(--slate-600); border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; font-weight: 500;
+}
+.agent-modal-slack {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+  background: #f5f0ff; border-radius: 8px; font-size: 12px; color: #6d28d9;
+  margin-top: 20px; border: 1px solid #ede9fe; font-weight: 500;
+}
 .agent-list-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 .agent-list-name { font-size: 13px; font-weight: 600; color: var(--slate-800); }
 .agent-list-role { font-size: 12px; color: var(--slate-500); line-height: 1.4; }
@@ -486,30 +536,30 @@ ul { list-style: none; }
 <section class="story-section light" id="why">
   <div class="story-inner">
     <div class="badge-pill light reveal">The Problem</div>
-    <h2 class="story-h2 reveal reveal-delay-1">The old way has a<br>bottleneck. It&rsquo;s you.</h2>
+    <h2 class="story-h2 reveal reveal-delay-1">SEO done wrong is<br>expensive, slow, and generic.</h2>
     <p class="story-lead reveal reveal-delay-2">
-      Traditional SEO requires constant human coordination &mdash; a keyword researcher
-      talks to a content writer who talks to a dev who talks to a link builder.
-      Each handoff loses context. Each week starts from scratch.
+      Most companies either pay agencies that run the same template playbook for every client,
+      or drain their own team &mdash; content writers, devs, and analysts all pulled into recurring,
+      structured work that a machine should be doing.
     </p>
     <div class="why-grid">
       <div class="why-col before reveal reveal-delay-2">
-        <div class="why-col-label">&#10005; The Old Way</div>
-        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Weekly manual keyword research &mdash; slow, incomplete, siloed</span></div>
-        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">SEO tools don&rsquo;t talk to content tools &mdash; context lost at every handoff</span></div>
-        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Human review bottleneck &mdash; insights queue up, opportunities expire</span></div>
-        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">No cross-channel synthesis &mdash; keyword wins don&rsquo;t inform link strategy</span></div>
-        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Expensive team coordination for recurring, structured work</span></div>
-        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Learning dies with the analyst who leaves</span></div>
+        <div class="why-col-label">&#10005; How Most Teams Do It</div>
+        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">SEO is highly technical &mdash; requires expertise most marketing teams don&rsquo;t have in-house</span></div>
+        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Agencies charge a premium for generic analysis &mdash; same playbook regardless of your business</span></div>
+        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Data lives in 4 disconnected tools &mdash; GSC, Ahrefs, GA4, PageSpeed never talk to each other</span></div>
+        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Results take 6&ndash;12 months &mdash; hard to justify investment before ROI appears</span></div>
+        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">GEO / AEO is unknown territory &mdash; you know you need it, but not where to start</span></div>
+        <div class="why-item"><div class="why-icon">&#10005;</div><span class="why-item-text">Team bandwidth drained: content writers, devs, and analysts all pulled into SEO tasks</span></div>
       </div>
       <div class="why-col after reveal reveal-delay-3">
-        <div class="why-col-label">&#10003; The New Way</div>
-        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">10 agents run in parallel every week &mdash; no human to schedule</span></div>
-        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Data Agent feeds all analysts from one cache &mdash; no context loss</span></div>
-        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Orchestrator merges proposals instantly &mdash; nothing queues</span></div>
-        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Cross-agent synthesis: keyword drop triggers content + link update together</span></div>
-        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Human review only for live site changes &mdash; everything else auto-approved</span></div>
-        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Learning accumulates in skills.md &mdash; every run the system gets smarter</span></div>
+        <div class="why-col-label">&#10003; How This System Works</div>
+        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Runs daily or weekly &mdash; as often as you need, no human required to trigger it</span></div>
+        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Custom-trained on your competitors, personas, and business context &mdash; not a generic template</span></div>
+        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">One Data Agent pulls all sources into a shared cache &mdash; every analyst sees the same picture</span></div>
+        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Compounds with every run &mdash; 7 runs in, the system knows what works for your domain</span></div>
+        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Dedicated GEO/AEO agent optimizes for AI Overviews, ChatGPT, and Perplexity citations</span></div>
+        <div class="why-item"><div class="why-icon">&#10003;</div><span class="why-item-text">Agents generate suggestions only &mdash; team reviews and approves before anything goes live</span></div>
       </div>
     </div>
   </div>
@@ -564,7 +614,7 @@ ul { list-style: none; }
     <div class="pipeline-meta">
       <div class="pipeline-meta-item reveal reveal-delay-1">
         <div class="pipeline-meta-label">Cadence</div>
-        <div class="pipeline-meta-value">Twice weekly via cron (Sun + Wed, 10 AM)</div>
+        <div class="pipeline-meta-value">On-demand or scheduled &mdash; run daily, twice weekly, or any cadence you need</div>
       </div>
       <div class="pipeline-meta-item reveal reveal-delay-2">
         <div class="pipeline-meta-label">Data Sources</div>
@@ -572,7 +622,7 @@ ul { list-style: none; }
       </div>
       <div class="pipeline-meta-item reveal reveal-delay-3">
         <div class="pipeline-meta-label">Human Touchpoints</div>
-        <div class="pipeline-meta-value">Live site changes only &mdash; everything else auto-approved</div>
+        <div class="pipeline-meta-value">Agents suggest, humans approve &mdash; every change is reviewed before anything goes live</div>
       </div>
     </div>
   </div>
@@ -586,7 +636,9 @@ ul { list-style: none; }
     <p class="story-lead reveal reveal-delay-2">
       Each agent has a defined scope and data contract. No agent overwrites another&rsquo;s work.
       The Orchestrator is the only one with write access to the master database &mdash;
-      every other agent writes to a proposals buffer first.
+      every other agent writes to a proposals buffer first. After every run, each agent&rsquo;s
+      summary is posted to Slack automatically &mdash; keeping the team in the loop without
+      a single status meeting. <em style="font-size:13px;opacity:.6">Click any agent to learn more.</em>
     </p>
     <div class="agent-network-wrap" id="agent-network">
       <div class="agent-svg-wrap reveal reveal-delay-2">
@@ -668,14 +720,14 @@ ul { list-style: none; }
         </svg>
       </div>
       <div class="agent-list-grid reveal reveal-delay-3">
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#ede9fe">&#128225;</div><div><div class="agent-list-name">Data Agent</div><div class="agent-list-role">Fetches GSC, GA4, PageSpeed, Ahrefs &mdash; caches for all agents</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#dbeafe">&#128269;</div><div><div class="agent-list-name">Keyword Agent</div><div class="agent-list-role">ROI-scores opportunities, maintains glossary backlog</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#cffafe">&#9889;</div><div><div class="agent-list-name">Technical Agent</div><div class="agent-list-role">Audits Core Web Vitals, schema, crawl errors, 404s</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#f3e8ff">&#129302;</div><div><div class="agent-list-name">GEO / AEO Agent</div><div class="agent-list-role">Optimizes for Google AI Overviews, ChatGPT, Perplexity</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#fef9c3">&#127919;</div><div><div class="agent-list-name">Competitor Agent</div><div class="agent-list-role">Monitors SERP movements, content gaps, backlink changes</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#dcfce7">&#9997;&#65039;</div><div><div class="agent-list-name">Content Agent</div><div class="agent-list-role">Generates drafts, meta descriptions, optimization briefs</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#fce7f3">&#128279;</div><div><div class="agent-list-name">Link Building Agent</div><div class="agent-list-role">Finds opportunities, drafts outreach, writes guest posts</div></div></div>
-        <div class="agent-list-item"><div class="agent-list-icon" style="background:#f1f5f9">&#128081;</div><div><div class="agent-list-name">Orchestrator (COO)</div><div class="agent-list-role">Merges proposals, resolves conflicts, drives action queue</div></div></div>
+        <div class="agent-list-item" data-agent="data" tabindex="0" role="button" aria-label="Learn about Data Agent"><div class="agent-list-icon" style="background:#ede9fe">&#128225;</div><div><div class="agent-list-name">Data Agent</div><div class="agent-list-role">Fetches GSC, GA4, PageSpeed, Ahrefs &mdash; caches for all agents</div></div></div>
+        <div class="agent-list-item" data-agent="keyword" tabindex="0" role="button" aria-label="Learn about Keyword Agent"><div class="agent-list-icon" style="background:#dbeafe">&#128269;</div><div><div class="agent-list-name">Keyword Agent</div><div class="agent-list-role">ROI-scores opportunities, maintains glossary backlog</div></div></div>
+        <div class="agent-list-item" data-agent="technical" tabindex="0" role="button" aria-label="Learn about Technical Agent"><div class="agent-list-icon" style="background:#cffafe">&#9889;</div><div><div class="agent-list-name">Technical Agent</div><div class="agent-list-role">Audits Core Web Vitals, schema, crawl errors, 404s</div></div></div>
+        <div class="agent-list-item" data-agent="geo" tabindex="0" role="button" aria-label="Learn about GEO/AEO Agent"><div class="agent-list-icon" style="background:#f3e8ff">&#129302;</div><div><div class="agent-list-name">GEO / AEO Agent</div><div class="agent-list-role">Optimizes for Google AI Overviews, ChatGPT, Perplexity</div></div></div>
+        <div class="agent-list-item" data-agent="competitors" tabindex="0" role="button" aria-label="Learn about Competitor Agent"><div class="agent-list-icon" style="background:#fef9c3">&#127919;</div><div><div class="agent-list-name">Competitor Agent</div><div class="agent-list-role">Monitors SERP movements, content gaps, backlink changes</div></div></div>
+        <div class="agent-list-item" data-agent="content" tabindex="0" role="button" aria-label="Learn about Content Agent"><div class="agent-list-icon" style="background:#dcfce7">&#9997;&#65039;</div><div><div class="agent-list-name">Content Agent</div><div class="agent-list-role">Generates drafts, meta descriptions, optimization briefs</div></div></div>
+        <div class="agent-list-item" data-agent="links" tabindex="0" role="button" aria-label="Learn about Link Building Agent"><div class="agent-list-icon" style="background:#fce7f3">&#128279;</div><div><div class="agent-list-name">Link Building Agent</div><div class="agent-list-role">Finds opportunities, drafts outreach, writes guest posts</div></div></div>
+        <div class="agent-list-item" data-agent="orchestrator" tabindex="0" role="button" aria-label="Learn about Orchestrator"><div class="agent-list-icon" style="background:#f1f5f9">&#128081;</div><div><div class="agent-list-name">Orchestrator (COO)</div><div class="agent-list-role">Merges proposals, resolves conflicts, drives action queue</div></div></div>
       </div>
     </div>
   </div>
@@ -700,6 +752,7 @@ ul { list-style: none; }
       <button class="rtab-btn" data-tab="pipeline">Task Pipeline</button>
       <button class="rtab-btn" data-tab="competitors">Competitors</button>
       <button class="rtab-btn" data-tab="health">System Health</button>
+      <button class="rtab-btn" data-tab="blogdraft" style="color:#6d28d9;font-weight:600">&#9997; Blog Draft</button>
     </div>
 
     <!-- Tab: Performance -->
@@ -1047,6 +1100,132 @@ ul { list-style: none; }
         </div>
       </section>
     </div>
+
+    <!-- Tab: Blog Draft -->
+    <div class="rtab-panel" id="rtab-blogdraft">
+      <section class="section">
+        <div class="section-title">Blog Draft</div>
+        <div class="section-subtitle">Content Agent output &mdash; triggered by keyword position drop, ready for content team review.</div>
+
+        <!-- Agent reasoning card -->
+        <div style="background:var(--navy-2);border-radius:12px;padding:20px 24px;margin-bottom:24px;color:white">
+          <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+            <div style="flex:1;min-width:200px">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px">Content Agent &mdash; Run #7</div>
+              <div style="font-size:15px;font-weight:700;margin-bottom:4px">Trigger: &ldquo;shadow fleet&rdquo; dropped #3 &rarr; #8.1</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6">Kpler published fresh analysis on Feb&nbsp;28 (&ldquo;3,300 shadow fleet vessels&rdquo;) and captured the top-3 positions. 76,654 monthly impressions now going to competitors. Orchestrator score: <strong style="color:#4ade80">97/100</strong> &mdash; Priority 1.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;min-width:180px">
+              <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px 14px">
+                <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px">Action</div>
+                <div style="font-size:13px;font-weight:600">Draft recovery article</div>
+              </div>
+              <div style="background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:8px;padding:10px 14px">
+                <div style="font-size:10px;color:rgba(74,222,128,.7);margin-bottom:2px">Status</div>
+                <div style="font-size:13px;font-weight:600;color:#4ade80">&#10003; Ready for review &mdash; 912 words</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEO metadata card -->
+        <div style="background:var(--slate-50);border:1px solid var(--slate-200);border-radius:10px;padding:16px 20px;margin-bottom:24px;font-size:13px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+            <div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-400);margin-bottom:4px">Title Tag <span style="font-weight:400;color:var(--green)">(58 chars)</span></div><div style="color:var(--slate-800);font-weight:500">Shadow Fleet 2025: How 600+ Tankers Evade Detection</div></div>
+            <div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-400);margin-bottom:4px">Meta Description <span style="font-weight:400;color:var(--green)">(152 chars)</span></div><div style="color:var(--slate-700)">Track shadow fleet vessels with live AIS data. See how 600+ sanctioned tankers use dark fleet tactics &mdash; and how Windward detects them before risk reaches your supply chain.</div></div>
+            <div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-400);margin-bottom:4px">Target Keywords</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px"><span class="badge badge-purple">shadow fleet</span><span class="badge badge-blue">dark fleet tankers</span><span class="badge badge-blue">AIS spoofing detection</span><span class="badge badge-cyan">sanctioned vessels 2025</span></div></div>
+            <div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-400);margin-bottom:4px">Schema Recommendation</div><div style="color:var(--slate-700)">Article + FAQPage &mdash; 3-agent consensus, expected +30&ndash;40% AI extraction rate</div></div>
+          </div>
+        </div>
+
+        <!-- Blog post draft -->
+        <div style="max-width:800px;margin:0 auto">
+          <div style="border:2px dashed var(--purple);border-radius:12px;padding:4px 12px 4px;margin-bottom:24px;display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--purple);font-weight:600;background:var(--purple-light)">
+            &#9997; Draft &mdash; awaiting content team review &amp; approval
+          </div>
+
+          <!-- Hero image placeholder -->
+          <div style="width:100%;height:280px;background:linear-gradient(135deg,#0a0f1e,#1a1040);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:32px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22280%22><path d=%22M0,140 Q50,80 100,140 T200,140 T300,120 T400,140 T500,130 T600,140%22 stroke=%22rgba(37,99,235,0.3)%22 fill=%22none%22 stroke-width=%221.5%22/><path d=%22M0,160 Q60,120 120,160 T240,155 T360,145 T480,158 T600,155%22 stroke=%22rgba(8,145,178,0.25)%22 fill=%22none%22 stroke-width=%221%22/></svg>');opacity:.8"></div>
+            <div style="text-align:center;position:relative;z-index:1">
+              <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px;font-weight:500;letter-spacing:.04em">IMAGE BRIEF</div>
+              <div style="font-size:15px;color:rgba(255,255,255,.85);font-weight:600;max-width:400px;text-align:center;line-height:1.5">AIS vessel track visualization &mdash; show active routes with deliberate dark-period gaps highlighted in red. Map overlay: Indian Ocean / Gulf area.</div>
+            </div>
+          </div>
+
+          <h1 style="font-size:clamp(24px,3.5vw,36px);font-weight:800;letter-spacing:-.02em;color:var(--slate-900);margin-bottom:12px;line-height:1.2">The Shadow Fleet in 2025: How 600+ Sanctioned Tankers Move Oil Undetected</h1>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--slate-200)">
+            <span style="font-size:12px;color:var(--slate-400)">&#9997; Content Agent &bull; Draft generated Mar&nbsp;12, 2026</span>
+            <span class="badge badge-purple">Shadow Fleet</span><span class="badge badge-blue">Sanctions Compliance</span><span class="badge badge-cyan">AIS Intelligence</span>
+          </div>
+
+          <p style="font-size:16px;line-height:1.8;color:var(--slate-700);margin-bottom:24px"><strong>The shadow fleet is no longer a fringe phenomenon.</strong> More than 600 oil tankers now operate outside Western insurance, flagging, and oversight systems &mdash; and together they move an estimated $140 billion in sanctioned crude every year. For compliance teams, port authorities, and commodity traders, understanding how these vessels operate isn&rsquo;t optional. It&rsquo;s baseline due diligence.</p>
+
+          <h2 style="font-size:22px;font-weight:700;color:var(--slate-900);margin:32px 0 12px;letter-spacing:-.01em">What Is the Shadow Fleet?</h2>
+          <p style="font-size:15px;line-height:1.8;color:var(--slate-600);margin-bottom:20px">The shadow fleet &mdash; also known as the dark fleet &mdash; refers to tankers that have severed ties with Western maritime infrastructure: P&amp;I insurance, flag states with transparency requirements, and Western vetting systems. Most emerged after 2022 Russia sanctions created demand for vessels willing to move sanctioned crude without paper trails that reach Western counterparties.</p>
+
+          <div style="background:linear-gradient(135deg,#0a0f1e,#0f172a);border-radius:12px;padding:24px;margin:28px 0;color:white">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px">Key Stats &mdash; Shadow Fleet 2025</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px">
+              <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:#60a5fa;letter-spacing:-.02em">600+</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">Vessels classified</div></div>
+              <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:#4ade80;letter-spacing:-.02em">$140B</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">Sanctioned oil annually</div></div>
+              <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:#f59e0b;letter-spacing:-.02em">17yr</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">Avg vessel age</div></div>
+              <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:#e879f9;letter-spacing:-.02em">84</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">Flag-hopped 3+ times</div></div>
+            </div>
+          </div>
+
+          <h2 style="font-size:22px;font-weight:700;color:var(--slate-900);margin:32px 0 12px;letter-spacing:-.01em">Three Tactics Shadow Fleet Vessels Use to Evade Detection</h2>
+
+          <div style="margin-bottom:20px">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--slate-100)">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0">1</div>
+              <div><div style="font-size:15px;font-weight:700;color:var(--slate-800);margin-bottom:6px">AIS Spoofing</div><div style="font-size:14px;color:var(--slate-600);line-height:1.7">Vessels broadcast false position data, making them appear at anchor in a legitimate port while physically transshipping cargo at sea. Windward&rsquo;s models detect spoofing by cross-referencing satellite AIS with terrestrial feeds and flagging behavioral anomalies that static position data can&rsquo;t explain.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--slate-100)">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0">2</div>
+              <div><div style="font-size:15px;font-weight:700;color:var(--slate-800);margin-bottom:6px">Ship-to-Ship Transfers</div><div style="font-size:14px;color:var(--slate-600);line-height:1.7">Cargo transfers mid-ocean in areas outside surveillance zones &mdash; east of Malta, Cape of Good Hope, Strait of Malacca. This breaks the paper trail between sanctioned origin and final destination, making the cargo appear clean to downstream buyers and banks.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--cyan);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0">3</div>
+              <div><div style="font-size:15px;font-weight:700;color:var(--slate-800);margin-bottom:6px">Flag Hopping</div><div style="font-size:14px;color:var(--slate-600);line-height:1.7">Vessels change flag state mid-voyage to obscure ownership history. In 2024, Windward tracked 84 vessels that changed flags three or more times within 12 months. Most use flags of convenience with minimal transparency requirements.</div></div>
+            </div>
+          </div>
+
+          <!-- Image placeholder 2 -->
+          <div style="width:100%;height:200px;background:var(--slate-100);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:28px 0;border:1px solid var(--slate-200)">
+            <div style="font-size:13px;color:var(--slate-400);margin-bottom:6px;font-weight:500">IMAGE BRIEF</div>
+            <div style="font-size:13px;color:var(--slate-500);text-align:center;max-width:360px;line-height:1.5">Diagram showing a ship-to-ship (STS) transfer operation at sea with AIS dark-period gap before and after the transfer point.</div>
+          </div>
+
+          <h2 style="font-size:22px;font-weight:700;color:var(--slate-900);margin:32px 0 12px;letter-spacing:-.01em">Why Static Screening Misses This</h2>
+          <p style="font-size:15px;line-height:1.8;color:var(--slate-600);margin-bottom:16px">Most KYV checks rely on point-in-time ownership records and OFAC SDN list matches. Shadow fleet operators exploit this by maintaining clean paper companies above obfuscated beneficial ownership structures, using flags that don&rsquo;t require transparent registry data, and completing cargo transfers during deliberate AIS dark periods.</p>
+
+          <div style="background:var(--blue-light);border-radius:10px;padding:20px 24px;margin:24px 0;border-left:4px solid var(--blue)">
+            <div style="font-size:14px;font-weight:700;color:#1e40af;margin-bottom:8px">Windward&rsquo;s Detection Approach</div>
+            <table style="width:100%;border-collapse:collapse;font-size:13px">
+              <thead><tr><th style="text-align:left;padding:6px 8px;font-size:11px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid rgba(37,99,235,.2)">Method</th><th style="text-align:left;padding:6px 8px;font-size:11px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid rgba(37,99,235,.2)">What It Catches</th></tr></thead>
+              <tbody>
+                <tr><td style="padding:8px;color:#1e40af;font-weight:500;vertical-align:top">AIS Behavior Analysis</td><td style="padding:8px;color:#1d4ed8;vertical-align:top">Dark periods, spoofing signatures, route inconsistencies</td></tr>
+                <tr><td style="padding:8px;color:#1e40af;font-weight:500;vertical-align:top">Ownership Graph</td><td style="padding:8px;color:#1d4ed8;vertical-align:top">Beneficial ownership through 7 layers of shell structures</td></tr>
+                <tr><td style="padding:8px;color:#1e40af;font-weight:500;vertical-align:top">Port Call Patterns</td><td style="padding:8px;color:#1d4ed8;vertical-align:top">Calls to sanctioned ports, STS-prone anchorages</td></tr>
+                <tr><td style="padding:8px;color:#1e40af;font-weight:500;vertical-align:top">Flag Change Velocity</td><td style="padding:8px;color:#1d4ed8;vertical-align:top">Rapid re-flagging as a risk signal</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Agent notes footer -->
+          <div style="margin-top:36px;padding:16px 20px;background:var(--slate-50);border-radius:10px;border:1px solid var(--slate-200);font-size:12px;color:var(--slate-500);line-height:1.7">
+            <div style="font-weight:700;color:var(--slate-700);margin-bottom:8px">&#129302; Content Agent Notes</div>
+            <div>&bull; <strong>Internal links to add:</strong> /vessel-tracking, /sanctions-compliance, /ais-spoofing, /dark-fleet</div>
+            <div>&bull; <strong>FAQPage schema</strong> added at page end &mdash; 3-agent consensus, expected +30&ndash;40% AI extraction</div>
+            <div>&bull; <strong>Recommended image sources:</strong> Windward platform screenshots (AIS track visualization), MarineTraffic embeds</div>
+            <div>&bull; <strong>CTA suggestion:</strong> &ldquo;Request a Demo&rdquo; placed after detection table &mdash; matches commercial persona</div>
+            <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--slate-200)">&bull; <strong>Slack posted:</strong> Summary sent to #seo-team and #content-team on completion</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
   </div>
 </section>
 
@@ -1070,6 +1249,19 @@ ul { list-style: none; }
     </div>
   </div>
 </section>
+
+<!-- AGENT MODAL -->
+<div class="agent-modal-backdrop" id="agent-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+  <div class="agent-modal">
+    <div class="agent-modal-header">
+      <button class="agent-modal-close" id="agent-modal-close" aria-label="Close">&times;</button>
+      <span class="agent-modal-icon" id="modal-icon"></span>
+      <div class="agent-modal-name" id="modal-name"></div>
+      <div class="agent-modal-tagline" id="modal-tagline"></div>
+    </div>
+    <div class="agent-modal-body" id="modal-body"></div>
+  </div>
+</div>
 
 <script>
 // Scroll reveal
@@ -1174,6 +1366,74 @@ document.querySelectorAll('.kw-filter-btn').forEach(btn => {
     });
   });
 });
+
+// ── Agent modals ────────────────────────────────────────
+const AGENT_DATA = {
+  orchestrator: { icon:'👑', name:'Orchestrator (COO)', tagline:'The only agent with write access to the master database', what:'Reads all 8 specialist proposals after each run, resolves conflicts, and scores every suggestion by Impact × Urgency ÷ Effort. Writes the final action_queue.json. Nothing reaches the team without passing through here.', outputs:['action_queue.json','Weekly team digest','Conflict resolution log'], sources:['All 8 agent proposals','Historical performance data','Priority scoring formula'], slack:true },
+  data:         { icon:'📡', name:'Data Agent', tagline:'Shared data layer — runs before any other agent', what:'Fetches from GSC, GA4, Ahrefs MCP, and PageSpeed API at the start of every pipeline run. Caches all results so every specialist agent draws from one consistent, fresh pull — no duplicate API calls, no data drift between agents.', outputs:['GSC export cache','Ahrefs metrics cache','GA4 session data','PageSpeed scores'], sources:['Google Search Console','Google Analytics 4','Ahrefs MCP','PageSpeed API'], slack:true },
+  keyword:      { icon:'🔍', name:'Keyword Agent', tagline:'Finds the highest-ROI opportunities in the keyword universe', what:'Scores every tracked keyword using Volume × Expected CTR × Business Value ÷ Keyword Difficulty. Maintains a glossary backlog, flags declining positions, and surfaces trending topics before they peak.', outputs:['Keyword opportunity proposals','Position drop alerts','Glossary backlog updates','Trending topic flags'], sources:['Ahrefs MCP (volume, KD)','GSC (position, CTR, impressions)','Trending signals'], slack:true },
+  technical:    { icon:'⚡', name:'Technical Agent', tagline:'Audits the site for every SEO-impacting technical issue', what:'Runs automated checks on Core Web Vitals (LCP, CLS, INP), schema markup validity, crawl errors, broken links, and page speed. Prioritizes fixes by ranking impact and routes specific tasks to the dev team via Slack with exact file locations.', outputs:['Technical audit report','Prioritized fix list','Dev team Slack alerts'], sources:['PageSpeed API','Schema.org validator','GSC crawl data','Ahrefs broken links'], slack:true },
+  geo:          { icon:'🤖', name:'GEO / AEO Agent', tagline:'Optimizes for AI Overviews, ChatGPT, and Perplexity citations', what:"Ensures Windward's content is structured for AI answer engines — not just Google. Adds FAQ schema, direct-answer formatting, and entity-level structure so the site gets cited in AI-generated responses. A new frontier: most teams don't know where to start.", outputs:['GEO optimization briefs','Schema markup recommendations','Entity coverage gaps','AI readiness score'], sources:['Schema.org specifications','Wikidata entity graph','AI citation monitoring'], slack:true },
+  competitors:  { icon:'🎯', name:'Competitor Agent', tagline:'Monitors 5 competitors for content gaps and SERP movements', what:"Tracks SERP position changes for all monitored competitors every run. Identifies content topics they rank for that Windward doesn't, and alerts when a competitor captures a keyword Windward previously owned.", outputs:['Competitor movement alerts','Content gap analysis','Backlink change report','New competitor detection'], sources:['Ahrefs SERP data','Competitor backlink profiles','Content page index'], slack:true },
+  content:      { icon:'✍️', name:'Content Agent', tagline:'Drafts blog posts, meta descriptions, and optimization briefs', what:'Takes the top-scored opportunities from the Orchestrator and generates complete blog drafts following the Windward style guide and persona system. All output is staged for content team review — nothing publishes automatically. Agents suggest; humans decide.', outputs:['Full blog post drafts','Meta title + description','Internal linking map','Image brief'], sources:['Action queue (from Orchestrator)','Style guide','Persona files','Keyword proposals'], slack:true },
+  links:        { icon:'🔗', name:'Link Building Agent', tagline:'Finds prospects and writes outreach — all staged for review', what:'Identifies DR-qualified link prospects relevant to maritime and compliance topics, personalizes outreach for each target using their recent content, and drafts guest post pitches. Every output is reviewed by a human before a single email is sent.', outputs:['Prospect shortlist with DR scores','Personalized outreach drafts','Guest post pitches','Follow-up schedules'], sources:['Ahrefs backlink data','Domain authority scores','Content relevance signals'], slack:true }
+};
+
+function makeModalSection(labelText, contentEl) {
+  const sec = document.createElement('div');
+  sec.className = 'agent-modal-section';
+  const lbl = document.createElement('div');
+  lbl.className = 'agent-modal-label';
+  lbl.textContent = labelText;
+  sec.appendChild(lbl);
+  sec.appendChild(contentEl);
+  return sec;
+}
+function makeTagList(items) {
+  const wrap = document.createElement('div');
+  wrap.className = 'agent-modal-tags';
+  items.forEach(function(item) {
+    const t = document.createElement('span');
+    t.className = 'agent-modal-tag';
+    t.textContent = item;
+    wrap.appendChild(t);
+  });
+  return wrap;
+}
+function openAgentModal(key) {
+  const a = AGENT_DATA[key];
+  if (!a) return;
+  document.getElementById('modal-icon').textContent = a.icon;
+  document.getElementById('modal-name').textContent = a.name;
+  document.getElementById('modal-tagline').textContent = a.tagline;
+  const body = document.getElementById('modal-body');
+  while (body.firstChild) body.removeChild(body.firstChild);
+  const desc = document.createElement('div');
+  desc.className = 'agent-modal-text';
+  desc.textContent = a.what;
+  body.appendChild(makeModalSection('What I do', desc));
+  body.appendChild(makeModalSection('What I produce', makeTagList(a.outputs)));
+  body.appendChild(makeModalSection('Data sources', makeTagList(a.sources)));
+  if (a.slack) {
+    const slk = document.createElement('div');
+    slk.className = 'agent-modal-slack';
+    slk.textContent = '\uD83D\uDCE2 Summary automatically posted to Slack after every run';
+    body.appendChild(slk);
+  }
+  document.getElementById('agent-modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAgentModal() {
+  document.getElementById('agent-modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.agent-list-item[data-agent]').forEach(function(el) {
+  el.addEventListener('click', function() { openAgentModal(el.dataset.agent); });
+  el.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAgentModal(el.dataset.agent); } });
+});
+document.getElementById('agent-modal-close').addEventListener('click', closeAgentModal);
+document.getElementById('agent-modal-backdrop').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeAgentModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAgentModal(); });
 </script>
 </body>
 </html>

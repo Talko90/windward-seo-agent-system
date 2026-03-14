@@ -5,8 +5,8 @@
 
 An autonomous, multi-agent SEO system built with [Claude Code](https://claude.ai/code) that continuously optimizes organic search presence, AI answer engine visibility, and agent-readiness — with zero manual intervention between weekly runs.
 
-**Live Dashboard**: [View the SEO Agent Dashboard](https://USERNAME.github.io/windward-seo-agent-system/)
-*(Replace USERNAME with your GitHub username after pushing)*
+**Live Dashboard**: [View the SEO Agent Dashboard](https://Talko90.github.io/windward-seo-agent-system/)
+*(Replace Talko90 with your GitHub username after pushing)*
 
 ---
 
@@ -109,7 +109,7 @@ Google Sheets Dashboard    Slack Notifications
 ### Step 1: Clone and configure
 
 ```bash
-git clone https://github.com/USERNAME/windward-seo-agent-system.git
+git clone https://github.com/Talko90/windward-seo-agent-system.git
 cd windward-seo-agent-system
 cp scripts/.env.example scripts/.env
 # Edit scripts/.env with your API keys
@@ -231,4 +231,4 @@ crontab -e
 
 MIT License — use this freely for your own SEO projects.
 
-Built by [Tal Cohen](https://github.com/USERNAME) using [Claude Code](https://claude.ai/code) by Anthropic.
+Built by [Tal Cohen](https://github.com/Talko90) using [Claude Code](https://claude.ai/code) by Anthropic.

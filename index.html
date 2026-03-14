@@ -385,6 +385,30 @@ body {
 }
 .animate-in { animation: fadeInUp .5s ease forwards; }
 .chart-bar { transition: height .8s cubic-bezier(.4,0,.2,1); }
+
+/* ─── Case Study Banner ─── */
+.case-study-banner {
+  background: #fffbeb; border-bottom: 1px solid #fde68a;
+  padding: 10px 0; font-size: 13px; color: #78350f; text-align: center;
+}
+.case-study-banner a { color: #92400e; font-weight: 600; }
+.case-study-banner a:hover { text-decoration: underline; }
+
+/* ─── CTA Footer ─── */
+.cta-footer {
+  margin-top: 64px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  color: white; padding: 48px 0; text-align: center;
+}
+.cta-footer h2 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 10px; }
+.cta-footer p { font-size: 15px; color: rgba(255,255,255,.65); margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta-btn { display: inline-block; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: opacity .15s; }
+.cta-btn:hover { opacity: .88; }
+.cta-btn-primary { background: white; color: #0f172a; }
+.cta-btn-secondary { background: rgba(255,255,255,.12); color: white; border: 1px solid rgba(255,255,255,.2); }
+.cta-footer-meta { margin-top: 28px; font-size: 12px; color: rgba(255,255,255,.35); }
+.footer-simple { padding: 16px 0; text-align: center; font-size: 12px; color: var(--slate-400); border-top: 1px solid var(--slate-200); }
 </style>
 </head>
 <body>
@@ -392,58 +416,43 @@ body {
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero" id="top">
   <div class="container hero-inner">
-    <div class="hero-badge">WINDWARD.AI &mdash; SEO OPERATIONS</div>
-    <h1>Autonomous SEO Agent System</h1>
-    <p class="hero-desc">10 AI agents work around the clock to find keyword opportunities, analyze competitors, audit technical health, and create content &mdash; all orchestrated automatically.</p>
+    <div class="hero-badge">CASE STUDY &mdash; WINDWARD.AI</div>
+    <h1>Autonomous SEO at Scale</h1>
+    <p class="hero-desc">A live implementation: 10 AI agents replacing the traditional SEO team at Windward.ai, a maritime intelligence company. Built by Tal Cohen &mdash; from data collection to prioritized action queue, fully automated.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="hero-stat-value" data-target="4348">0</div>
-        <div class="hero-stat-label">Weekly Sessions</div>
-        <span class="hero-stat-change change-up">&uarr; GA4 Mar 11</span>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-value" data-target="15">0</div>
-        <div class="hero-stat-label">Conversions (7d)</div>
-        <span class="hero-stat-change change-up">Mar 5–11</span>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-value" data-target="4881">0</div>
-        <div class="hero-stat-label">Search Clicks (7d)</div>
-        <span class="hero-stat-change change-up">1.05M impressions</span>
-      </div>
-    </div>
-    <div class="hero-stats-row2">
-      <div class="hero-stat">
-        <div class="hero-stat-value" data-target="64">0</div>
-        <div class="hero-stat-label">Domain Rating</div>
-        <span class="hero-stat-change change-up">27,810 org traffic/mo</span>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-value" data-target="1993">0</div>
-        <div class="hero-stat-label">Referring Domains</div>
-        <span class="hero-stat-change change-up">15,990 backlinks</span>
+        <div class="hero-stat-value">10</div>
+        <div class="hero-stat-label">AI Agents</div>
+        <span class="hero-stat-change change-up">coordinated team</span>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-value" data-target="163">0</div>
-        <div class="hero-stat-label">Active Tasks</div>
+        <div class="hero-stat-label">Active Tasks Generated</div>
         <span class="hero-stat-change change-up">115 approved</span>
       </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="27810">0</div>
+        <div class="hero-stat-label">Organic Traffic / mo</div>
+        <span class="hero-stat-change change-up">illustrative</span>
+      </div>
     </div>
-    <div style="margin-top:16px;padding:12px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.8)">
-      <span><strong style="color:rgba(255,255,255,.95)">Ahrefs Organic Traffic:</strong> 27,810/mo</span>
-      <span><strong style="color:rgba(255,255,255,.95)">Keywords:</strong> 3,464</span>
-      <span><strong style="color:rgba(255,255,255,.95)">DR:</strong> 64 (stable)</span>
-      <span><strong style="color:rgba(255,255,255,.95)">Backlinks:</strong> 15,990</span>
-    </div>
-    <div class="hero-meta">Last updated: March 12, 2026 &bull; Data: GSC (Mar 2–9) + GA4 (Mar 11) + Ahrefs (147,100 units remaining) &bull; Pipeline Run v5.1: 7 new tasks, 163 total &bull; Tech health: 68/100 &bull; AI readiness: 59/100</div>
+    <div class="hero-meta">Built with Claude Code &bull; Runs twice weekly via cron &bull; Illustrative data &bull; Framework available on GitHub</div>
   </div>
 </section>
+
+<!-- ═══════════════ CASE STUDY BANNER ═══════════════ -->
+<div class="case-study-banner">
+  <div class="container">
+    &#8505;&#65039; Case Study &bull; Data is illustrative, based on real methodology applied to Windward.ai (maritime intelligence) &bull; Built by <a href="https://growthbyagent.com" target="_blank">Tal Cohen</a> &bull; <a href="https://growthbyagent.com" target="_blank">growthbyagent.com</a>
+  </div>
+</div>
 
 <!-- ═══════════════ STICKY NAV ═══════════════ -->
 <nav class="sticky-nav">
   <div class="container">
     <div class="sticky-nav-inner">
-      <a href="#performance" class="nav-link active">Performance</a>
+      <a href="#how" class="nav-link active">How It Works</a>
+      <a href="#performance" class="nav-link">Performance</a>
       <a href="#ahrefs" class="nav-link">Ahrefs</a>
       <a href="#agents" class="nav-link">Agent Roster</a>
       <a href="#keywords" class="nav-link">Keywords</a>
@@ -451,12 +460,68 @@ body {
       <a href="#competitors" class="nav-link">Competitors</a>
       <a href="#status" class="nav-link">Status</a>
       <a href="#health" class="nav-link">System Health</a>
-      <a href="#how" class="nav-link">How It Works</a>
     </div>
   </div>
 </nav>
 
 <div class="container">
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="section" id="how">
+  <div class="section-title">How It Works</div>
+  <div class="section-subtitle">A fully autonomous pipeline &mdash; from raw data to prioritized tasks, running every week.</div>
+
+  <div class="card" style="padding:32px">
+    <div class="pipeline-steps">
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#2563eb,#0891b2)">
+          <span>&#128268;</span><span class="pipeline-step-num">1</span>
+        </div>
+        <div class="pipeline-step-title">Collect Data</div>
+        <div class="pipeline-step-desc">Pulls search rankings, traffic, page speed, and competitor data from Google &amp; other sources.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">
+          <span>&#128270;</span><span class="pipeline-step-num">2</span>
+        </div>
+        <div class="pipeline-step-title">Analyze</div>
+        <div class="pipeline-step-desc">6 specialist agents each examine a different angle: keywords, competitors, technical health, AI visibility, links, and content.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+          <span>&#128081;</span><span class="pipeline-step-num">3</span>
+        </div>
+        <div class="pipeline-step-title">Prioritize</div>
+        <div class="pipeline-step-desc">The orchestrator merges all findings, scores each task by business impact, and assigns to the right team.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#16a34a,#059669)">
+          <span>&#9998;&#65039;</span><span class="pipeline-step-num">4</span>
+        </div>
+        <div class="pipeline-step-title">Execute</div>
+        <div class="pipeline-step-desc">Content drafts are generated automatically. Technical tasks and website changes go to human teams for implementation.</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
+          <span>&#128218;</span><span class="pipeline-step-num">5</span>
+        </div>
+        <div class="pipeline-step-title">Learn</div>
+        <div class="pipeline-step-desc">Results are measured each week. The system updates its strategy based on what worked and what didn't.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;padding:20px;background:var(--slate-50);border-radius:8px;text-align:center">
+      <div style="font-size:14px;font-weight:600;color:var(--slate-700);margin-bottom:8px">The Result</div>
+      <div style="font-size:13px;color:var(--slate-600);max-width:600px;margin:0 auto;line-height:1.7">
+        What would take a team of SEO specialists days to research and plan, this system does in hours &mdash; analyzing thousands of keywords, monitoring 6 competitors, auditing hundreds of pages, and producing ready-to-publish content drafts. Each week, the system identifies the highest-impact opportunities and creates clear, prioritized tasks for the team.
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════════ PERFORMANCE TRENDS ═══════════════ -->
 <section class="section" id="performance">
@@ -1044,70 +1109,22 @@ body {
   </div>
 </section>
 
-<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
-<section class="section" id="how">
-  <div class="section-title">How It Works</div>
-  <div class="section-subtitle">A fully autonomous pipeline &mdash; from raw data to prioritized tasks, running every week.</div>
-
-  <div class="card" style="padding:32px">
-    <div class="pipeline-steps">
-      <div class="pipeline-step">
-        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#2563eb,#0891b2)">
-          <span>&#128268;</span><span class="pipeline-step-num">1</span>
-        </div>
-        <div class="pipeline-step-title">Collect Data</div>
-        <div class="pipeline-step-desc">Pulls search rankings, traffic, page speed, and competitor data from Google &amp; other sources.</div>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">
-          <span>&#128270;</span><span class="pipeline-step-num">2</span>
-        </div>
-        <div class="pipeline-step-title">Analyze</div>
-        <div class="pipeline-step-desc">6 specialist agents each examine a different angle: keywords, competitors, technical health, AI visibility, links, and content.</div>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-          <span>&#128081;</span><span class="pipeline-step-num">3</span>
-        </div>
-        <div class="pipeline-step-title">Prioritize</div>
-        <div class="pipeline-step-desc">The orchestrator merges all findings, scores each task by business impact, and assigns to the right team.</div>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#16a34a,#059669)">
-          <span>&#9998;&#65039;</span><span class="pipeline-step-num">4</span>
-        </div>
-        <div class="pipeline-step-title">Execute</div>
-        <div class="pipeline-step-desc">Content drafts are generated automatically. Technical tasks and website changes go to human teams for implementation.</div>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
-          <span>&#128218;</span><span class="pipeline-step-num">5</span>
-        </div>
-        <div class="pipeline-step-title">Learn</div>
-        <div class="pipeline-step-desc">Results are measured each week. The system updates its strategy based on what worked and what didn't.</div>
-      </div>
-    </div>
-
-    <div style="margin-top:28px;padding:20px;background:var(--slate-50);border-radius:8px;text-align:center">
-      <div style="font-size:14px;font-weight:600;color:var(--slate-700);margin-bottom:8px">The Result</div>
-      <div style="font-size:13px;color:var(--slate-600);max-width:600px;margin:0 auto;line-height:1.7">
-        What would take a team of SEO specialists days to research and plan, this system does in hours &mdash; analyzing thousands of keywords, monitoring 6 competitors, auditing hundreds of pages, and producing ready-to-publish content drafts. Each week, the system identifies the highest-impact opportunities and creates clear, prioritized tasks for the team.
-      </div>
-    </div>
-  </div>
-</section>
-
 </div><!-- /container -->
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<div class="footer">
+<!-- ═══════════════ CTA FOOTER ═══════════════ -->
+<div class="cta-footer">
   <div class="container">
-    Windward.ai SEO Agent System &bull; Built with Claude Code &bull; Dashboard generated March 12, 2026
+    <h2>Deploy This for Your Own Site</h2>
+    <p>The full system &mdash; agents, scripts, and dashboard &mdash; is open-source. Clone it, replace the Windward context with your domain, and run your first pipeline in an afternoon.</p>
+    <div class="cta-buttons">
+      <a href="https://github.com/Talko90/windward-seo-agent-system" target="_blank" class="cta-btn cta-btn-primary">&#9733; Star on GitHub</a>
+      <a href="https://growthbyagent.com" target="_blank" class="cta-btn cta-btn-secondary">growthbyagent.com</a>
+    </div>
+    <div class="cta-footer-meta">Built with Claude Code by Anthropic &bull; MIT License &bull; Open source</div>
   </div>
+</div>
+<div class="footer-simple">
+  <div class="container">Windward.ai SEO Agent System &bull; Case Study Dashboard &bull; Illustrative data</div>
 </div>
 
 <!-- ═══════════════ JAVASCRIPT ═══════════════ -->

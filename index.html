@@ -1442,20 +1442,25 @@ svg .agent-node:hover circle { opacity: 0.72; }
       Replace the example context with your domain. Run your first pipeline in an afternoon.
     </p>
     <!-- TRY IT ON YOUR SITE FORM -->
-    <div class="reveal reveal-delay-3" style="max-width:540px;margin:0 auto 40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 28px;text-align:left">
-      <div style="font-size:13px;font-weight:700;color:white;margin-bottom:4px">&#128640; Try it on your own site</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:16px">Enter your details to download a pre-configured CLAUDE.md starter file.</div>
-      <div class="try-form-row" style="display:flex;gap:10px;margin-bottom:10px">
-        <input id="try-company" type="text" placeholder="Company name" maxlength="60"
-          style="flex:1;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:white;font-size:13px;font-family:inherit;outline:none;min-width:0"/>
-        <input id="try-domain" type="text" placeholder="yourdomain.com" maxlength="60"
-          style="flex:1;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:white;font-size:13px;font-family:inherit;outline:none;min-width:0"/>
+    <div id="try-form-wrap" class="reveal reveal-delay-3" style="max-width:480px;margin:0 auto 40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 28px;text-align:left">
+      <div style="font-size:13px;font-weight:700;color:white;margin-bottom:4px">&#128640; Get your personalized CLAUDE.md</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:16px">Drop your email and domain &mdash; we&rsquo;ll generate your starter file instantly.</div>
+      <div id="try-form-fields">
+        <input id="try-email" type="email" placeholder="you@company.com" required maxlength="120"
+          style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:white;font-size:13px;font-family:inherit;outline:none;margin-bottom:10px"/>
+        <input id="try-domain" type="text" placeholder="yourdomain.com" maxlength="80"
+          style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:white;font-size:13px;font-family:inherit;outline:none;margin-bottom:12px"/>
+        <button onclick="submitTryForm()"
+          style="width:100%;padding:11px 20px;border-radius:8px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;color:white;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity 0.15s">
+          Download CLAUDE.md &rarr;
+        </button>
+        <div style="font-size:11px;color:rgba(255,255,255,.22);margin-top:10px;text-align:center">We&rsquo;ll only follow up if you want help getting started.</div>
       </div>
-      <button onclick="downloadTemplate()"
-        style="width:100%;padding:11px 20px;border-radius:8px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;color:white;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity 0.15s">
-        Download CLAUDE.md starter &rarr;
-      </button>
-      <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:10px;text-align:center">No sign-up. No email. Just a file.</div>
+      <div id="try-form-success" style="display:none;text-align:center;padding:8px 0">
+        <div style="font-size:22px;margin-bottom:8px">&#9989;</div>
+        <div style="font-size:14px;font-weight:700;color:white;margin-bottom:4px">Your file is downloading!</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45)">We&rsquo;ll be in touch if you&rsquo;d like a hand getting set up.</div>
+      </div>
     </div>
 
     <div class="cta-buttons reveal reveal-delay-4">
@@ -1688,79 +1693,85 @@ fetch('https://api.github.com/repos/Talko90/windward-seo-agent-system')
     });
   }).catch(function() {});
 
-// Download CLAUDE.md starter template
-function downloadTemplate() {
-  var company = (document.getElementById('try-company').value.trim() || '[Your Company]');
-  var domain  = (document.getElementById('try-domain').value.trim()  || '[your-domain].com');
+// Form submit: POST to Formspree + download personalized CLAUDE.md
+// TODO: replace YOUR_FORMSPREE_ID with your actual form ID from formspree.io
+var FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+function submitTryForm() {
+  var email  = (document.getElementById('try-email').value.trim());
+  var domain = (document.getElementById('try-domain').value.trim() || '[your-domain].com');
+  if (!email || !email.includes('@')) {
+    document.getElementById('try-email').style.borderColor = '#f87171';
+    document.getElementById('try-email').focus();
+    return;
+  }
+  // Download the file immediately — don't make user wait for network
   var tpl = [
-'# CLAUDE.md\n',
-'# Autonomous SEO Agent System — ' + company + '\n',
-'# Generated from the open-source template at https://github.com/Talko90/windward-seo-agent-system\n',
+'# CLAUDE.md — Autonomous SEO Agent System\n',
+'# Site: https://' + domain + '\n',
+'# Generated from https://github.com/Talko90/windward-seo-agent-system\n',
 '\n',
 '## Domain Context\n',
 'Site: https://' + domain + '\n',
-'Company: ' + company + '\n',
-'Industry: [Your industry — e.g. maritime, fintech, SaaS, e-commerce]\n',
-'Competitors: [List 3-5 main competitors here]\n',
+'Industry: [Add your industry — e.g. SaaS, fintech, e-commerce, maritime]\n',
+'Competitors: [List 3-5 main competitors]\n',
 '\n',
 '## Goals\n',
 '1. Increase organic traffic from search engines and LLMs\n',
-'2. Improve visibility for [Your primary keywords]\n',
-'3. Achieve AI citation/mention in answer engines\n',
+'2. Improve visibility for [your primary keywords]\n',
+'3. Achieve AI citation/mention in AI answer engines (ChatGPT, Perplexity, Gemini)\n',
 '\n',
 '## Architecture: Hub-and-Spoke with Proposal Buffers\n',
-'**Analysis agents write ONLY to `data/proposals/`**\n',
-'**Only `/seo-plan` (Orchestrator) writes to `data/master/`**\n',
+'Analysis agents write ONLY to data/proposals/\n',
+'Only /seo-plan (Orchestrator) writes to data/master/\n',
 '\n',
 '## Data Sources\n',
-'| Priority | Source | Confidence |\n',
-'|---|---|---|\n',
-'| 1 | Ahrefs MCP — keyword, backlink, competitor data | 0.95 |\n',
-'| 2 | Google Search Console | 0.90 |\n',
-'| 3 | Google Analytics 4 | 0.90 |\n',
-'| 4 (fallback) | WebSearch — tag as "unverified" | 0.60 |\n',
+'Priority 1: Ahrefs MCP — keyword, backlink, competitor data (confidence: 0.95)\n',
+'Priority 2: Google Search Console (confidence: 0.90)\n',
+'Priority 3: Google Analytics 4 (confidence: 0.90)\n',
+'Priority 4 (fallback): WebSearch — tag as "unverified" (confidence: 0.60)\n',
 '\n',
-'## SEO Dashboard\n',
-'Spreadsheet: [Create a Google Sheet and paste the ID here]\n',
-'Sheets ID: YOUR_GOOGLE_SHEETS_ID\n',
+'## SEO Dashboard (Google Sheets)\n',
+'Spreadsheet ID: YOUR_GOOGLE_SHEETS_ID\n',
+'Tabs: Action Queue | Weekly Metrics | Keywords Tracking | Content Calendar\n',
 '\n',
 '## Slack Notifications\n',
 'Webhook: YOUR_SLACK_WEBHOOK_URL\n',
-'Method: curl via Bash tool. Verify response contains "ok".\n',
-'\n',
-'## Execution Rules\n',
-'1. Complete ALL phases of workflow without stopping mid-execution\n',
-'2. Before reporting complete: verify output files exist and are non-empty\n',
-'3. Retry transient errors (network: 3x; rate limit: 60s wait)\n',
-'4. Every quantitative claim MUST include data_source and fetched_at\n',
-'5. ZERO TOLERANCE for unsourced numbers — say "Data not available" if unverifiable\n',
 '\n',
 '## Quick Start\n',
-'```\n',
 '/seo-health-check   # Verify all systems working\n',
-'/seo-data           # Fetch baseline data (GSC, GA4, Ahrefs)\n',
+'/seo-data           # Fetch baseline data\n',
 '/seo-plan           # Generate initial action queue\n',
-'/seo-content        # Generate content drafts from top actions\n',
-'```\n',
+'/seo-content        # Generate content drafts\n',
 '\n',
 '## Setup Checklist\n',
-'- [ ] Replace YOUR_GOOGLE_SHEETS_ID with real Sheets ID\n',
-'- [ ] Replace YOUR_SLACK_WEBHOOK_URL with real webhook URL\n',
-'- [ ] Add competitors to Domain Context above\n',
-'- [ ] Run `python3 scripts/fetch_gsc.py` to complete Google OAuth\n',
-'- [ ] Run /seo-health-check to verify all connections\n',
+'[ ] Set up Google Cloud project + OAuth (see README Step 2)\n',
+'[ ] Create Google Sheets dashboard (see README Step 3)\n',
+'[ ] Configure Ahrefs MCP (see README Step 4)\n',
+'[ ] Replace YOUR_GOOGLE_SHEETS_ID above\n',
+'[ ] Replace YOUR_SLACK_WEBHOOK_URL above\n',
+'[ ] Replace domain and add competitors above\n',
+'[ ] Run /seo-health-check to verify all connections\n',
 '\n',
-'See README.md for full setup instructions.\n'
+'See README.md for full setup: https://github.com/Talko90/windward-seo-agent-system\n'
   ].join('');
   var blob = new Blob([tpl], { type: 'text/plain' });
   var url  = URL.createObjectURL(blob);
   var a    = document.createElement('a');
-  a.href     = url;
-  a.download = 'CLAUDE.md';
-  document.body.appendChild(a);
-  a.click();
+  a.href = url; a.download = 'CLAUDE.md';
+  document.body.appendChild(a); a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+  // Show success state
+  document.getElementById('try-form-fields').style.display = 'none';
+  document.getElementById('try-form-success').style.display = 'block';
+  // POST to Formspree in background (fire-and-forget)
+  if (FORMSPREE_ID !== 'YOUR_FORMSPREE_ID') {
+    fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email: email, domain: domain, source: 'claude-md-download' })
+    }).catch(function() {});
+  }
 }
 </script>
 </body>

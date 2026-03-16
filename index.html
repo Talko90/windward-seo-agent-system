@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Autonomous SEO at Scale — AI Agent System Case Study</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSJ1cmwoI2cpIi8+CiAgPHBhdGggZD0iTTggMjJMMTQgMTRMMTggMThMMjQgMTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0yMCAxMEgyNFYxNCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iMTQiIGN5PSIxNCIgcj0iMiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjkiLz4KICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjE4IiByPSIyIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIuOSIvPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIzMiIgeTI9IjMyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM2MzY2RjEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOEI1Q0Y2Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPC9zdmc+Cg==">
 <style>
 
 /* ══════════════════════════════════════
@@ -235,7 +236,7 @@ ul { list-style: none; }
    S4: AGENT NETWORK
 ══════════════════════════════════════ */
 .agent-network-wrap { display: flex; flex-direction: column; align-items: center; margin-top: 48px; gap: 48px; }
-.agent-svg-wrap { width: 100%; max-width: 600px; }
+.agent-svg-wrap { width: 100%; max-width: 720px; }
 .agent-svg-wrap svg { width: 100%; height: auto; overflow: visible; }
 @keyframes dash-flow { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
 .agent-line { stroke-dasharray: 6 4; animation: dash-flow 1.2s linear infinite; opacity: 0.5; }
@@ -685,55 +686,55 @@ svg .agent-node:hover circle { opacity: 0.72; }
           <line x1="300" y1="140" x2="497" y2="260" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
           <line x1="300" y1="140" x2="163" y2="130" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
           <g class="agent-node" id="node-orchestrator" data-agent="orchestrator" role="button" tabindex="0" aria-label="Learn about Orchestrator agent">
-            <circle cx="300" cy="280" r="54" fill="url(#orchestrator-grad)" opacity=".15"/>
-            <circle cx="300" cy="280" r="44" fill="url(#orchestrator-grad)"/>
-            <text x="300" y="272" text-anchor="middle" font-size="22">&#128081;</text>
-            <text x="300" y="292" text-anchor="middle" fill="white" font-size="9" font-weight="700" letter-spacing=".05em">ORCHESTRATOR</text>
+            <circle cx="300" cy="280" r="62" fill="url(#orchestrator-grad)" opacity=".15"/>
+            <circle cx="300" cy="280" r="50" fill="url(#orchestrator-grad)"/>
+            <text x="300" y="270" text-anchor="middle" font-size="28">&#128081;</text>
+            <text x="300" y="295" text-anchor="middle" fill="white" font-size="12" font-weight="700" letter-spacing=".05em">ORCHESTRATOR</text>
           </g>
           <g class="agent-node" id="node-data" data-agent="data" role="button" tabindex="0" aria-label="Learn about Data agent">
-            <circle cx="300" cy="140" r="28" fill="url(#data-grad)"/>
-            <text x="300" y="134" text-anchor="middle" font-size="14">&#128225;</text>
-            <text x="300" y="150" text-anchor="middle" fill="white" font-size="8" font-weight="600">DATA</text>
+            <circle cx="300" cy="140" r="32" fill="url(#data-grad)"/>
+            <text x="300" y="132" text-anchor="middle" font-size="18">&#128225;</text>
+            <text x="300" y="152" text-anchor="middle" fill="white" font-size="11" font-weight="600">DATA</text>
           </g>
           <g class="agent-node" data-agent="keyword" role="button" tabindex="0" aria-label="Learn about Keyword agent">
-            <circle cx="300" cy="62" r="24" fill="#2563eb"/>
-            <text x="300" y="56" text-anchor="middle" font-size="13">&#128269;</text>
-            <text x="300" y="70" text-anchor="middle" fill="white" font-size="7" font-weight="600">KEYWORD</text>
+            <circle cx="300" cy="62" r="30" fill="#2563eb"/>
+            <text x="300" y="54" text-anchor="middle" font-size="17">&#128269;</text>
+            <text x="300" y="74" text-anchor="middle" fill="white" font-size="11" font-weight="600">KEYWORD</text>
           </g>
           <g class="agent-node" data-agent="technical" role="button" tabindex="0" aria-label="Learn about Technical agent">
-            <circle cx="448" cy="122" r="24" fill="#0891b2"/>
-            <text x="448" y="116" text-anchor="middle" font-size="13">&#9889;</text>
-            <text x="448" y="130" text-anchor="middle" fill="white" font-size="7" font-weight="600">TECHNICAL</text>
+            <circle cx="448" cy="122" r="30" fill="#0891b2"/>
+            <text x="448" y="114" text-anchor="middle" font-size="17">&#9889;</text>
+            <text x="448" y="135" text-anchor="middle" fill="white" font-size="11" font-weight="600">TECHNICAL</text>
           </g>
           <g class="agent-node" data-agent="geo" role="button" tabindex="0" aria-label="Learn about GEO/AEO agent">
-            <circle cx="508" cy="280" r="24" fill="#8b5cf6"/>
-            <text x="508" y="274" text-anchor="middle" font-size="13">&#129302;</text>
-            <text x="508" y="288" text-anchor="middle" fill="white" font-size="7" font-weight="600">GEO/AEO</text>
+            <circle cx="508" cy="280" r="30" fill="#8b5cf6"/>
+            <text x="508" y="272" text-anchor="middle" font-size="17">&#129302;</text>
+            <text x="508" y="293" text-anchor="middle" fill="white" font-size="11" font-weight="600">GEO/AEO</text>
           </g>
           <g class="agent-node" data-agent="competitors" role="button" tabindex="0" aria-label="Learn about Competitor agent">
-            <circle cx="448" cy="438" r="24" fill="#f59e0b"/>
-            <text x="448" y="432" text-anchor="middle" font-size="13">&#127919;</text>
-            <text x="448" y="446" text-anchor="middle" fill="white" font-size="7" font-weight="600">COMPETITORS</text>
+            <circle cx="448" cy="438" r="30" fill="#f59e0b"/>
+            <text x="448" y="430" text-anchor="middle" font-size="17">&#127919;</text>
+            <text x="448" y="451" text-anchor="middle" fill="white" font-size="11" font-weight="600">COMPETITORS</text>
           </g>
           <g class="agent-node" data-agent="content" role="button" tabindex="0" aria-label="Learn about Content agent">
-            <circle cx="300" cy="498" r="24" fill="#16a34a"/>
-            <text x="300" y="492" text-anchor="middle" font-size="13">&#9997;&#65039;</text>
-            <text x="300" y="506" text-anchor="middle" fill="white" font-size="7" font-weight="600">CONTENT</text>
+            <circle cx="300" cy="498" r="30" fill="#16a34a"/>
+            <text x="300" y="490" text-anchor="middle" font-size="17">&#9997;&#65039;</text>
+            <text x="300" y="511" text-anchor="middle" fill="white" font-size="11" font-weight="600">CONTENT</text>
           </g>
           <g class="agent-node" data-agent="links" role="button" tabindex="0" aria-label="Learn about Link Building agent">
-            <circle cx="152" cy="438" r="24" fill="#ec4899"/>
-            <text x="152" y="432" text-anchor="middle" font-size="13">&#128279;</text>
-            <text x="152" y="446" text-anchor="middle" fill="white" font-size="7" font-weight="600">LINKS</text>
+            <circle cx="152" cy="438" r="30" fill="#ec4899"/>
+            <text x="152" y="430" text-anchor="middle" font-size="17">&#128279;</text>
+            <text x="152" y="451" text-anchor="middle" fill="white" font-size="11" font-weight="600">LINKS</text>
           </g>
           <g class="agent-node" data-agent="agents" role="button" tabindex="0" aria-label="Learn about AI Readiness agent">
-            <circle cx="92" cy="280" r="24" fill="#0891b2"/>
-            <text x="92" y="274" text-anchor="middle" font-size="13">&#129302;</text>
-            <text x="92" y="288" text-anchor="middle" fill="white" font-size="7" font-weight="600">AI-READY</text>
+            <circle cx="92" cy="280" r="30" fill="#0891b2"/>
+            <text x="92" y="272" text-anchor="middle" font-size="17">&#129302;</text>
+            <text x="92" y="293" text-anchor="middle" fill="white" font-size="11" font-weight="600">AI-READY</text>
           </g>
           <g class="agent-node" data-agent="learning" role="button" tabindex="0" aria-label="Learn about Learning agent">
-            <circle cx="152" cy="122" r="24" fill="#64748b"/>
-            <text x="152" y="116" text-anchor="middle" font-size="13">&#128218;</text>
-            <text x="152" y="130" text-anchor="middle" fill="white" font-size="7" font-weight="600">LEARNING</text>
+            <circle cx="152" cy="122" r="30" fill="#64748b"/>
+            <text x="152" y="114" text-anchor="middle" font-size="17">&#128218;</text>
+            <text x="152" y="135" text-anchor="middle" fill="white" font-size="11" font-weight="600">LEARNING</text>
           </g>
         </svg>
       </div>
@@ -813,49 +814,45 @@ svg .agent-node:hover circle { opacity: 0.72; }
             <line x1="350" y1="8" x2="350" y2="132" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4 3" opacity=".5"/>
             <rect x="316" y="2" width="68" height="14" rx="4" fill="#eff6ff"/>
             <text x="350" y="12" text-anchor="middle" font-size="8" fill="#2563eb" font-weight="600">Agents deployed</text>
-            <!-- "Before" label -->
-            <text x="190" y="148" text-anchor="middle" font-size="9" fill="#94a3b8">← Before (6 weeks)</text>
-            <!-- "After" label -->
-            <text x="510" y="148" text-anchor="middle" font-size="9" fill="#3b82f6" font-weight="600">After (6 weeks) →</text>
             <!-- Area fill (after segment only) -->
-            <polygon points="350,102 402,98 454,85 506,70 558,52 610,30 660,18 660,130 350,130" fill="url(#chart-fill)"/>
-            <!-- Before segment line (grey, flat-ish with minor noise) -->
-            <polyline points="40,118 92,115 144,120 196,112 248,116 300,110 350,102" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-            <!-- After segment line (blue, strong uptrend) -->
-            <polyline points="350,102 402,98 454,85 506,70 558,52 610,30 660,18" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <polygon points="350,91 402,88 454,83 506,75 558,64 610,54 660,45 660,130 350,130" fill="url(#chart-fill)"/>
+            <!-- Before segment line (grey, noisy ~78K avg) -->
+            <polyline points="40,94 92,88 144,93 196,90 248,95 300,91 350,91" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+            <!-- After segment line (blue, slow start then accelerating) -->
+            <polyline points="350,91 402,88 454,83 506,75 558,64 610,54 660,45" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
             <!-- Data point dots — before -->
-            <circle cx="40" cy="118" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
-            <circle cx="92" cy="115" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
-            <circle cx="144" cy="120" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
-            <circle cx="196" cy="112" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
-            <circle cx="248" cy="116" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
-            <circle cx="300" cy="110" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="40" cy="94" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="92" cy="88" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="144" cy="93" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="196" cy="90" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="248" cy="95" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="300" cy="91" r="3" fill="white" stroke="#94a3b8" stroke-width="1.5"/>
             <!-- Data point dots — after -->
-            <circle cx="350" cy="102" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-            <circle cx="402" cy="98" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-            <circle cx="454" cy="85" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-            <circle cx="506" cy="70" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-            <circle cx="558" cy="52" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-            <circle cx="610" cy="30" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
-            <circle cx="660" cy="18" r="4" fill="#1d4ed8" stroke="white" stroke-width="2"/>
+            <circle cx="350" cy="91" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+            <circle cx="402" cy="88" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+            <circle cx="454" cy="83" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+            <circle cx="506" cy="75" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+            <circle cx="558" cy="64" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+            <circle cx="610" cy="54" r="3.5" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+            <circle cx="660" cy="45" r="4" fill="#1d4ed8" stroke="white" stroke-width="2"/>
             <!-- Week X labels -->
-            <text x="40" y="144" text-anchor="middle" font-size="8" fill="#cbd5e1">W1</text>
-            <text x="92" y="144" text-anchor="middle" font-size="8" fill="#cbd5e1">W2</text>
-            <text x="144" y="144" text-anchor="middle" font-size="8" fill="#cbd5e1">W3</text>
-            <text x="196" y="144" text-anchor="middle" font-size="8" fill="#cbd5e1">W4</text>
-            <text x="248" y="144" text-anchor="middle" font-size="8" fill="#cbd5e1">W5</text>
-            <text x="300" y="144" text-anchor="middle" font-size="8" fill="#cbd5e1">W6</text>
-            <text x="402" y="144" text-anchor="middle" font-size="8" fill="#93c5fd">W7</text>
-            <text x="454" y="144" text-anchor="middle" font-size="8" fill="#93c5fd">W8</text>
-            <text x="506" y="144" text-anchor="middle" font-size="8" fill="#93c5fd">W9</text>
-            <text x="558" y="144" text-anchor="middle" font-size="8" fill="#93c5fd">W10</text>
-            <text x="610" y="144" text-anchor="middle" font-size="8" fill="#93c5fd">W11</text>
-            <text x="660" y="144" text-anchor="middle" font-size="8" fill="#93c5fd">W12</text>
+            <text x="40" y="144" text-anchor="middle" font-size="9" fill="#cbd5e1">W1</text>
+            <text x="92" y="144" text-anchor="middle" font-size="9" fill="#cbd5e1">W2</text>
+            <text x="144" y="144" text-anchor="middle" font-size="9" fill="#cbd5e1">W3</text>
+            <text x="196" y="144" text-anchor="middle" font-size="9" fill="#cbd5e1">W4</text>
+            <text x="248" y="144" text-anchor="middle" font-size="9" fill="#cbd5e1">W5</text>
+            <text x="300" y="144" text-anchor="middle" font-size="9" fill="#cbd5e1">W6</text>
+            <text x="402" y="144" text-anchor="middle" font-size="9" fill="#93c5fd">W7</text>
+            <text x="454" y="144" text-anchor="middle" font-size="9" fill="#93c5fd">W8</text>
+            <text x="506" y="144" text-anchor="middle" font-size="9" fill="#93c5fd">W9</text>
+            <text x="558" y="144" text-anchor="middle" font-size="9" fill="#93c5fd">W10</text>
+            <text x="610" y="144" text-anchor="middle" font-size="9" fill="#93c5fd">W11</text>
+            <text x="660" y="144" text-anchor="middle" font-size="9" fill="#93c5fd">W12</text>
           </svg>
           <div style="display:flex;gap:24px;margin-top:12px;flex-wrap:wrap">
             <div style="font-size:12px;color:var(--slate-500)">Baseline avg: <strong style="color:var(--slate-700)">~78K/wk</strong></div>
-            <div style="font-size:12px;color:var(--slate-500)">Week 12: <strong style="color:#1d4ed8">~172K/wk</strong></div>
-            <div style="font-size:12px;color:var(--slate-500)">Uplift: <strong style="color:#16a34a">+121%</strong></div>
+            <div style="font-size:12px;color:var(--slate-500)">Week 12: <strong style="color:#1d4ed8">~134K/wk</strong></div>
+            <div style="font-size:12px;color:var(--slate-500)">Uplift: <strong style="color:#16a34a">+72%</strong></div>
             <div style="font-size:11px;color:var(--slate-400);margin-left:auto;align-self:center">Illustrative &mdash; indicative of real methodology results</div>
           </div>
         </div>

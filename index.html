@@ -236,7 +236,7 @@ ul { list-style: none; }
    S4: AGENT NETWORK
 ══════════════════════════════════════ */
 .agent-network-wrap { display: flex; flex-direction: column; align-items: center; margin-top: 48px; gap: 48px; }
-.agent-svg-wrap { width: 100%; max-width: 720px; }
+.agent-svg-wrap { width: 100%; max-width: 800px; }
 .agent-svg-wrap svg { width: 100%; height: auto; overflow: visible; }
 @keyframes dash-flow { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
 .agent-line { stroke-dasharray: 6 4; animation: dash-flow 1.2s linear infinite; opacity: 0.5; }
@@ -517,7 +517,7 @@ svg .agent-node:hover circle { opacity: 0.72; }
   <a href="#how">How</a>
   <a href="#agents">Agents</a>
   <a href="#results">Results</a>
-  <a href="https://github.com/Talko90/windward-seo-agent-system" target="_blank" class="gh-star-count">&#9733; GitHub</a>
+  <a href="https://github.com/Talko90/seo-agentic-system" target="_blank" class="gh-star-count">&#9733; GitHub</a>
 </nav>
 
 <!-- S1: HERO -->
@@ -661,7 +661,7 @@ svg .agent-node:hover circle { opacity: 0.72; }
     </p>
     <div class="agent-network-wrap" id="agent-network">
       <div class="agent-svg-wrap reveal reveal-delay-2">
-        <svg viewBox="0 0 600 560" xmlns="http://www.w3.org/2000/svg" aria-label="Agent network diagram">
+        <svg viewBox="0 0 700 660" xmlns="http://www.w3.org/2000/svg" aria-label="Agent network diagram">
           <defs>
             <radialGradient id="orchestrator-grad" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="#3b82f6"/>
@@ -672,69 +672,82 @@ svg .agent-node:hover circle { opacity: 0.72; }
               <stop offset="100%" stop-color="#6d28d9"/>
             </radialGradient>
           </defs>
-          <line class="agent-line" x1="300" y1="92" x2="300" y2="240" stroke="#2563eb" stroke-width="1.5"/>
-          <line class="agent-line" x1="437" y1="152" x2="336" y2="252" stroke="#0891b2" stroke-width="1.5" style="animation-delay:.15s"/>
-          <line class="agent-line" x1="497" y1="280" x2="356" y2="280" stroke="#8b5cf6" stroke-width="1.5" style="animation-delay:.3s"/>
-          <line class="agent-line" x1="437" y1="408" x2="336" y2="308" stroke="#f59e0b" stroke-width="1.5" style="animation-delay:.45s"/>
-          <line class="agent-line" x1="300" y1="468" x2="300" y2="320" stroke="#16a34a" stroke-width="1.5" style="animation-delay:.6s"/>
-          <line class="agent-line" x1="163" y1="408" x2="264" y2="308" stroke="#ec4899" stroke-width="1.5" style="animation-delay:.75s"/>
-          <line class="agent-line" x1="103" y1="280" x2="244" y2="280" stroke="#0891b2" stroke-width="1.5" style="animation-delay:.9s"/>
-          <line class="agent-line" x1="163" y1="152" x2="264" y2="252" stroke="#64748b" stroke-width="1.5" style="animation-delay:1.05s"/>
-          <line class="agent-line" x1="300" y1="158" x2="300" y2="240" stroke="#8b5cf6" stroke-width="2" style="animation-delay:.05s"/>
-          <line x1="300" y1="140" x2="300" y2="92" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".25"/>
-          <line x1="300" y1="140" x2="437" y2="130" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
-          <line x1="300" y1="140" x2="497" y2="260" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
-          <line x1="300" y1="140" x2="163" y2="130" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
+          <!-- Main lines: outer nodes to orchestrator (350, 330) -->
+          <line class="agent-line" x1="350" y1="76" x2="350" y2="330" stroke="#2563eb" stroke-width="1.5"/>
+          <line class="agent-line" x1="523" y1="146" x2="350" y2="330" stroke="#0891b2" stroke-width="1.5" style="animation-delay:.15s"/>
+          <line class="agent-line" x1="593" y1="330" x2="350" y2="330" stroke="#8b5cf6" stroke-width="1.5" style="animation-delay:.3s"/>
+          <line class="agent-line" x1="523" y1="514" x2="350" y2="330" stroke="#f59e0b" stroke-width="1.5" style="animation-delay:.45s"/>
+          <line class="agent-line" x1="350" y1="584" x2="350" y2="330" stroke="#16a34a" stroke-width="1.5" style="animation-delay:.6s"/>
+          <line class="agent-line" x1="177" y1="514" x2="350" y2="330" stroke="#ec4899" stroke-width="1.5" style="animation-delay:.75s"/>
+          <line class="agent-line" x1="107" y1="330" x2="350" y2="330" stroke="#0891b2" stroke-width="1.5" style="animation-delay:.9s"/>
+          <line class="agent-line" x1="177" y1="146" x2="350" y2="330" stroke="#64748b" stroke-width="1.5" style="animation-delay:1.05s"/>
+          <!-- Data node to orchestrator -->
+          <line class="agent-line" x1="350" y1="167" x2="350" y2="330" stroke="#8b5cf6" stroke-width="2" style="animation-delay:.05s"/>
+          <!-- Dashed data feeds from data node to select outer nodes -->
+          <line x1="350" y1="167" x2="350" y2="76" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".25"/>
+          <line x1="350" y1="167" x2="523" y2="146" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
+          <line x1="350" y1="167" x2="593" y2="310" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
+          <line x1="350" y1="167" x2="177" y2="146" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3 3" opacity=".15"/>
+          <!-- Orchestrator (center) -->
           <g class="agent-node" id="node-orchestrator" data-agent="orchestrator" role="button" tabindex="0" aria-label="Learn about Orchestrator agent">
-            <circle cx="300" cy="280" r="62" fill="url(#orchestrator-grad)" opacity=".15"/>
-            <circle cx="300" cy="280" r="50" fill="url(#orchestrator-grad)"/>
-            <text x="300" y="270" text-anchor="middle" font-size="28">&#128081;</text>
-            <text x="300" y="295" text-anchor="middle" fill="white" font-size="12" font-weight="700" letter-spacing=".05em">ORCHESTRATOR</text>
+            <circle cx="350" cy="330" r="74" fill="url(#orchestrator-grad)" opacity=".15"/>
+            <circle cx="350" cy="330" r="60" fill="url(#orchestrator-grad)"/>
+            <text x="350" y="320" text-anchor="middle" font-size="32">&#128081;</text>
+            <text x="350" y="348" text-anchor="middle" fill="white" font-size="13" font-weight="700" letter-spacing=".05em">ORCHESTRATOR</text>
           </g>
+          <!-- Data (inner ring) -->
           <g class="agent-node" id="node-data" data-agent="data" role="button" tabindex="0" aria-label="Learn about Data agent">
-            <circle cx="300" cy="140" r="32" fill="url(#data-grad)"/>
-            <text x="300" y="132" text-anchor="middle" font-size="18">&#128225;</text>
-            <text x="300" y="152" text-anchor="middle" fill="white" font-size="11" font-weight="600">DATA</text>
+            <circle cx="350" cy="167" r="38" fill="url(#data-grad)"/>
+            <text x="350" y="157" text-anchor="middle" font-size="20">&#128225;</text>
+            <text x="350" y="180" text-anchor="middle" fill="white" font-size="11" font-weight="600">DATA</text>
           </g>
+          <!-- Keyword (top) -->
           <g class="agent-node" data-agent="keyword" role="button" tabindex="0" aria-label="Learn about Keyword agent">
-            <circle cx="300" cy="62" r="30" fill="#2563eb"/>
-            <text x="300" y="54" text-anchor="middle" font-size="17">&#128269;</text>
-            <text x="300" y="74" text-anchor="middle" fill="white" font-size="11" font-weight="600">KEYWORD</text>
+            <circle cx="350" cy="76" r="42" fill="#2563eb"/>
+            <text x="350" y="65" text-anchor="middle" font-size="20">&#128269;</text>
+            <text x="350" y="89" text-anchor="middle" fill="white" font-size="11" font-weight="600">KEYWORD</text>
           </g>
+          <!-- Technical (top-right) -->
           <g class="agent-node" data-agent="technical" role="button" tabindex="0" aria-label="Learn about Technical agent">
-            <circle cx="448" cy="122" r="30" fill="#0891b2"/>
-            <text x="448" y="114" text-anchor="middle" font-size="17">&#9889;</text>
-            <text x="448" y="135" text-anchor="middle" fill="white" font-size="11" font-weight="600">TECHNICAL</text>
+            <circle cx="523" cy="146" r="42" fill="#0891b2"/>
+            <text x="523" y="135" text-anchor="middle" font-size="20">&#9889;</text>
+            <text x="523" y="159" text-anchor="middle" fill="white" font-size="11" font-weight="600">TECHNICAL</text>
           </g>
+          <!-- GEO/AEO (right) -->
           <g class="agent-node" data-agent="geo" role="button" tabindex="0" aria-label="Learn about GEO/AEO agent">
-            <circle cx="508" cy="280" r="30" fill="#8b5cf6"/>
-            <text x="508" y="272" text-anchor="middle" font-size="17">&#129302;</text>
-            <text x="508" y="293" text-anchor="middle" fill="white" font-size="11" font-weight="600">GEO/AEO</text>
+            <circle cx="593" cy="330" r="42" fill="#8b5cf6"/>
+            <text x="593" y="319" text-anchor="middle" font-size="20">&#129302;</text>
+            <text x="593" y="343" text-anchor="middle" fill="white" font-size="11" font-weight="600">GEO/AEO</text>
           </g>
+          <!-- Competitors (bottom-right) -->
           <g class="agent-node" data-agent="competitors" role="button" tabindex="0" aria-label="Learn about Competitor agent">
-            <circle cx="448" cy="438" r="30" fill="#f59e0b"/>
-            <text x="448" y="430" text-anchor="middle" font-size="17">&#127919;</text>
-            <text x="448" y="451" text-anchor="middle" fill="white" font-size="11" font-weight="600">COMPETITORS</text>
+            <circle cx="523" cy="514" r="42" fill="#f59e0b"/>
+            <text x="523" y="503" text-anchor="middle" font-size="20">&#127919;</text>
+            <text x="523" y="527" text-anchor="middle" fill="white" font-size="11" font-weight="600">COMPETITORS</text>
           </g>
+          <!-- Content (bottom) -->
           <g class="agent-node" data-agent="content" role="button" tabindex="0" aria-label="Learn about Content agent">
-            <circle cx="300" cy="498" r="30" fill="#16a34a"/>
-            <text x="300" y="490" text-anchor="middle" font-size="17">&#9997;&#65039;</text>
-            <text x="300" y="511" text-anchor="middle" fill="white" font-size="11" font-weight="600">CONTENT</text>
+            <circle cx="350" cy="584" r="42" fill="#16a34a"/>
+            <text x="350" y="573" text-anchor="middle" font-size="20">&#9997;&#65039;</text>
+            <text x="350" y="597" text-anchor="middle" fill="white" font-size="11" font-weight="600">CONTENT</text>
           </g>
+          <!-- Links (bottom-left) -->
           <g class="agent-node" data-agent="links" role="button" tabindex="0" aria-label="Learn about Link Building agent">
-            <circle cx="152" cy="438" r="30" fill="#ec4899"/>
-            <text x="152" y="430" text-anchor="middle" font-size="17">&#128279;</text>
-            <text x="152" y="451" text-anchor="middle" fill="white" font-size="11" font-weight="600">LINKS</text>
+            <circle cx="177" cy="514" r="42" fill="#ec4899"/>
+            <text x="177" y="503" text-anchor="middle" font-size="20">&#128279;</text>
+            <text x="177" y="527" text-anchor="middle" fill="white" font-size="11" font-weight="600">LINKS</text>
           </g>
+          <!-- AI-Ready (left) -->
           <g class="agent-node" data-agent="agents" role="button" tabindex="0" aria-label="Learn about AI Readiness agent">
-            <circle cx="92" cy="280" r="30" fill="#0891b2"/>
-            <text x="92" y="272" text-anchor="middle" font-size="17">&#129302;</text>
-            <text x="92" y="293" text-anchor="middle" fill="white" font-size="11" font-weight="600">AI-READY</text>
+            <circle cx="107" cy="330" r="42" fill="#0891b2"/>
+            <text x="107" y="319" text-anchor="middle" font-size="20">&#129302;</text>
+            <text x="107" y="343" text-anchor="middle" fill="white" font-size="11" font-weight="600">AI-READY</text>
           </g>
+          <!-- Learning (top-left) -->
           <g class="agent-node" data-agent="learning" role="button" tabindex="0" aria-label="Learn about Learning agent">
-            <circle cx="152" cy="122" r="30" fill="#64748b"/>
-            <text x="152" y="114" text-anchor="middle" font-size="17">&#128218;</text>
-            <text x="152" y="135" text-anchor="middle" fill="white" font-size="11" font-weight="600">LEARNING</text>
+            <circle cx="177" cy="146" r="42" fill="#64748b"/>
+            <text x="177" y="135" text-anchor="middle" font-size="20">&#128218;</text>
+            <text x="177" y="159" text-anchor="middle" fill="white" font-size="11" font-weight="600">LEARNING</text>
           </g>
         </svg>
       </div>
@@ -1481,7 +1494,7 @@ svg .agent-node:hover circle { opacity: 0.72; }
     </div>
 
     <div class="cta-buttons reveal reveal-delay-4">
-      <a href="https://github.com/Talko90/windward-seo-agent-system" target="_blank" class="cta-btn cta-btn-primary gh-star-count">&#9733; Star on GitHub</a>
+      <a href="https://github.com/Talko90/seo-agentic-system" target="_blank" class="cta-btn cta-btn-primary gh-star-count">&#9733; Star on GitHub</a>
       <a href="https://growthbyagent.com" target="_blank" class="cta-btn cta-btn-secondary">growthbyagent.com</a>
     </div>
     <div class="cta-footer-attr reveal reveal-delay-4">
@@ -1699,7 +1712,7 @@ document.getElementById('agent-modal-backdrop').addEventListener('click', functi
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAgentModal(); });
 
 // GitHub stars counter
-fetch('https://api.github.com/repos/Talko90/windward-seo-agent-system')
+fetch('https://api.github.com/repos/Talko90/seo-agentic-system')
   .then(function(r) { return r.json(); })
   .then(function(d) {
     var count = d.stargazers_count;
@@ -1728,19 +1741,35 @@ function submitTryForm() {
   }
   // Download the file immediately — don't make user wait for network
   var tpl = [
+'> **TEMPLATE NOTICE:** This is a template. For best results, insert this CLAUDE.md\n',
+'> file in a new project folder and start using Claude Code to adjust it to your\n',
+'> business — provide relevant context, skills, and integrations.\n',
+'\n',
 '# CLAUDE.md — Autonomous SEO Agent System\n',
 '# Site: https://' + domain + '\n',
-'# Generated from https://github.com/Talko90/windward-seo-agent-system\n',
+'# Source: https://github.com/Talko90/seo-agentic-system\n',
 '\n',
 '## Domain Context\n',
 'Site: https://' + domain + '\n',
-'Industry: [Add your industry — e.g. SaaS, fintech, e-commerce, maritime]\n',
+'Industry: [Add your industry — e.g. SaaS, fintech, e-commerce]\n',
 'Competitors: [List 3-5 main competitors]\n',
 '\n',
 '## Goals\n',
 '1. Increase organic traffic from search engines and LLMs\n',
 '2. Improve visibility for [your primary keywords]\n',
 '3. Achieve AI citation/mention in AI answer engines (ChatGPT, Perplexity, Gemini)\n',
+'\n',
+'## Agent Roster\n',
+'/seo-plan         Orchestrator — merges proposals, resolves conflicts, drives action queue\n',
+'/seo-data         Data Agent — fetches GSC, GA4, PageSpeed, Ahrefs; caches for all agents\n',
+'/seo-keywords     Keyword Agent — ROI-scores opportunities, maintains glossary backlog\n',
+'/seo-technical    Technical Agent — audits Core Web Vitals, schema, crawl errors, 404s\n',
+'/seo-geo          GEO/AEO Agent — optimizes for Google AI Overviews, ChatGPT, Perplexity\n',
+'/seo-competitors  Competitor Agent — monitors SERP movements, content gaps, backlinks\n',
+'/seo-content      Content Agent — generates drafts, meta descriptions, optimization briefs\n',
+'/seo-links        Link Building Agent — finds opportunities, drafts outreach, guest posts\n',
+'/seo-agents       AI Readiness Agent — ensures site is navigable by autonomous AI agents\n',
+'/seo-learning     Learning Agent — tracks algorithm changes, updates agent strategies\n',
 '\n',
 '## Architecture: Hub-and-Spoke with Proposal Buffers\n',
 'Analysis agents write ONLY to data/proposals/\n',
@@ -1771,10 +1800,10 @@ function submitTryForm() {
 '[ ] Configure Ahrefs MCP (see README Step 4)\n',
 '[ ] Replace YOUR_GOOGLE_SHEETS_ID above\n',
 '[ ] Replace YOUR_SLACK_WEBHOOK_URL above\n',
-'[ ] Replace domain and add competitors above\n',
+'[ ] Replace [DOMAIN] and add competitors above\n',
 '[ ] Run /seo-health-check to verify all connections\n',
 '\n',
-'See README.md for full setup: https://github.com/Talko90/windward-seo-agent-system\n'
+'See README.md for full setup: https://github.com/Talko90/seo-agentic-system\n'
   ].join('');
   var blob = new Blob([tpl], { type: 'text/plain' });
   var url  = URL.createObjectURL(blob);
